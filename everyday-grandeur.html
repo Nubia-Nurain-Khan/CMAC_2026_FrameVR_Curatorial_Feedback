@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Everyday Grandeur — Curatorial Review Submission</title>
+
+  <style>
+    :root{
+      --accent:#005555; /* Everyday Grandeur (Cyan) */
+      --bg:#f3f4f6;
+      --panel:#ffffff;
+      --text:#111827;
+      --muted:#4b5563;
+      --line:#e5e7eb;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius:16px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
+    .wrap{ max-width: 1060px; margin: 0 auto; padding: 28px 18px 44px; }
+
+    header{
+      background: linear-gradient(135deg, rgba(0,85,85,.10), rgba(0,85,85,.04));
+      border: 1px solid var(--line);
+      border-left: 10px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    h1{ margin:0; font-size: 26px; letter-spacing: .2px; }
+    .sub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+      max-width: 92ch;
+      white-space: pre-line;
+    }
+
+    .pillrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px; border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.65);
+      color: var(--muted); font-size: 13px;
+    }
+
+    .grid{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+    @media (min-width: 980px){ .grid{ grid-template-columns: 1.05fr .95fr; align-items:start; } }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    h2{ margin: 0 0 10px; font-size: 18px; }
+
+    .kvs{ display:grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+    .kv{
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #fafafa;
+    }
+    .kv b{ display:block; margin-bottom: 2px; font-size: 14px; color: var(--text); }
+    .kv span{ color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+    .note{
+      border-left: 6px solid var(--accent);
+      background: rgba(0,85,85,.06);
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 12px 0 0;
+      font-size: 14px;
+    }
+
+    .sectionTitle{ margin-top: 14px; font-size: 15px; color: var(--text); font-weight: 700; }
+
+    ol{ margin: 8px 0 0 18px; padding: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    li{ margin: 10px 0; }
+    .workTitle{ color: var(--text); font-weight: 700; }
+    .meta{ display:block; margin-top: 2px; }
+
+    .slots{ margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+
+    .small{ color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; }
+    .select{ padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:#fff; margin-left: 10px; }
+
+    .scoreBox{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fafafa;
+      margin-top: 10px;
+    }
+    .scoreRow{ display:flex; gap:18px; flex-wrap:wrap; margin-top: 8px; font-size: 14px; }
+    .scoreRow b{ color: var(--text); }
+    .hint{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    .approvalPanel{
+      margin-top: 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background:#fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .approvalHeader{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .approvalTitle{ font-weight: 750; font-size: 14px; letter-spacing: .2px; }
+    .badge{
+      font-size: 12px; font-weight: 750;
+      padding: 6px 10px; border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f9fafb; color: var(--muted);
+      white-space: nowrap;
+    }
+    .badgeApproved{
+      border-color: rgba(0,0,0,.08);
+      background: rgba(16,185,129,.16);
+      color: #065f46;
+    }
+    .badgeConditional{
+      border-color: rgba(0,0,0,.08);
+      background: rgba(245,158,11,.18);
+      color: #92400e;
+    }
+    .badgeReview{
+      border-color: rgba(0,0,0,.08);
+      background: rgba(59,130,246,.16);
+      color: #1e40af;
+    }
+    .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
+    .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    .confetti{ position:absolute; inset:0; pointer-events:none; }
+    .confettiPiece{
+      position:absolute;
+      top:-16px;
+      border-radius: 2px;
+      opacity: 0;
+      transform: translateY(0) rotate(0deg);
+      animation: confettiFall 1600ms cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    .sparkle{
+      position:absolute;
+      top: 14px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      opacity: 0;
+      animation: sparklePop 1000ms ease-out forwards;
+      filter: blur(.2px);
+    }
+    @keyframes confettiFall{
+      0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+      12%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(420px) rotate(620deg); }
+    }
+    @keyframes sparklePop{
+      0%   { opacity: 0; transform: scale(.6); }
+      20%  { opacity: 1; transform: scale(1.35); }
+      100% { opacity: 0; transform: scale(2.0); }
+    }
+
+    .iframeWrap{
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow:hidden;
+      background:#fff;
+    }
+    iframe{
+      width: 100%;
+      height: 980px;
+      border: 0;
+      display:block;
+      background:#fff;
+    }
+
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 12px 14px; border-radius: 14px; text-decoration:none;
+      border: 1px solid var(--line);
+      color: var(--text); background: #fff; font-weight: 650;
+    }
+    .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
+  
+    /* --- Visual slot checker (less text, more visuals) --- */
+    .thumbGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 520px){ .thumbGrid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (min-width: 980px){ .thumbGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
+    .thumb{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+      position:relative;
+    }
+    .thumbBtn{
+      display:block;
+      padding:0;
+      border:0;
+      background:transparent;
+      width:100%;
+      cursor:pointer;
+      text-align:left;
+    }
+    .thumbImg{
+      width:100%;
+      height: 150px;
+      object-fit: cover;
+      display:block;
+      background:#f3f4f6;
+    }
+    .thumbMeta{
+      padding: 10px 10px 12px;
+      border-top: 1px solid var(--line);
+    }
+    .thumbTitle{
+      font-weight: 750;
+      font-size: 13px;
+      line-height: 1.3;
+      margin:0;
+    }
+    .thumbSub{
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .checkWrap{
+      position:absolute;
+      top:10px;
+      left:10px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(6px);
+    }
+    .checkWrap input{ width: 18px; height: 18px; }
+    .checkWrap span{ font-size: 12px; font-weight: 750; color: var(--text); }
+
+    .controlsRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .btnSmall{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background:#fff;
+      color: var(--text);
+      font-weight: 650;
+      cursor:pointer;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      background: rgba(17,24,39,.66);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 9999;
+    }
+    .modal[open]{ display:flex; }
+    .modalPanel{
+      width:min(980px, 100%);
+      background:#fff;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    .modalBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fafafa;
+    }
+    .modalBar b{ font-size: 14px; }
+    .modalClose{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 700;
+    }
+    .modalImg{
+      width:100%;
+      height: min(74vh, 720px);
+      object-fit: contain;
+      display:block;
+      background:#111827;
+    }
+    .modalCaption{
+      padding: 12px 14px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    details{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #fafafa;
+      margin-top: 10px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 800;
+      color: var(--text);
+      list-style: none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Curatorial Review Submission</h1>
+      <p class="sub">Everyday Grandeur: American Art Reimagined
+
+Thank you for your curatorial contribution to this installation.
+The gallery has been completed under defined material, authorial, and representational constraints.
+
+This form records alignment with the original curatorial framework and identifies areas of interpretive divergence.
+
+Proceed with the review below.</p>
+
+      <div class="pillrow">
+        <div class="pill">Estimated time: 2–4 minutes</div>
+        <div class="pill">Responses are recorded for review</div>
+        <div class="pill">Optional identifying info</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Left -->
+      <section class="card">
+        <h2>Gallery context and constraints</h2>
+
+        <div class="kvs">
+          <div class="kv">
+            <b>Room</b>
+            <span>Everyday Grandeur: American Art Reimagined</span>
+          </div>
+          <div class="kv">
+            <b>Task</b>
+            <span>Complete 5 remaining slots while maintaining the exhibition constraints.</span>
+          </div>
+        </div>
+
+        <div class="sectionTitle">Key constraints</div>
+        <div class="kvs">
+          <div class="kv"><b>Print techniques</b><span>At least one work each in lithograph, etching, engraving, and linocut</span></div>
+          <div class="kv"><b>Artist limit</b><span>No more than two works by Winslow Homer</span></div>
+          <div class="kv"><b>Immigrant representation</b><span>At least four works by immigrant artists</span></div>
+          <div class="kv"><b>Contemporary inclusion</b><span>One AI-generated work</span></div>
+        </div>
+
+        <div class="note">
+          <b>Review note:</b> The lists below reflect the curatorial team’s reference plan.
+          If your final selection aligns with it, that is acceptable.
+          If your selection differs, please document your interpretive rationale in the form.
+        </div>
+
+        <div class="sectionTitle">Reference plan for Everyday Grandeur</div>
+
+        <details>
+          <summary>Already placed artworks (tap to expand)</summary>
+          <ol>
+          <li>
+            <span class="workTitle">Untitled</span>
+            <span class="meta">Jack Youngerman (Born in St. Louis, Missouri, 1926–2020) • 1951 • Linocut on paper</span>
+          </li>
+          <li>
+            <span class="workTitle">Maid Cutting Ice</span>
+            <span class="meta">John Sloan (American, 1871–1951) • 1918 • Oil with tempera and oil-varnish glazes on canvas</span>
+          </li>
+          <li>
+            <span class="workTitle">Palozzo Florence</span>
+            <span class="meta">Rudy Pozzatti (American, born 1925) • 1955 • Etching, engraving on paper</span>
+          </li>
+          <li>
+            <span class="workTitle">Skating On the Ladies' Skating Pond In Central Park, New York</span>
+            <span class="meta">Winslow Homer (American, 1836–1910) • 1860 • Wood engraving on paper</span>
+          </li>
+          <li>
+            <span class="workTitle">A Parisian Ball — Dancing at the Mabille, Paris</span>
+            <span class="meta">Winslow Homer (American, 1836–1910) • 1867 • Wood engraving on paper</span>
+          </li>
+        </ol>
+        </details>
+
+        <div class="slots">
+          <details open>
+            <summary>Expected artworks for the empty slots (reference plan)</summary>
+            <ol>
+            <li>
+              <span class="workTitle">Slot 1 — L. B. Johnson: MURDERER (from the portfolio <em>Artists and Writers Protest Against the War in Viet Nam</em>)</span>
+              <span class="meta">Mark di Suvero (American, born China, 1933) • 1967 • Lithograph on paper • Printer: Artists and Writers Protest, Inc., New York, NY • Publisher: Chiron Press, Inc., New York, NY</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 2 — Miami Masters</span>
+              <span class="meta">Malcolm Morley (Born in Great Britain, 1931–2018) • 20th century • Lithograph on paper • Other: Shorewood Fine Art Books, Inc. • Printer: Shorewood Atelier</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 3 — Shame to All but to the Dead</span>
+              <span class="meta">David Davidovich Burliuk (Ukrainian, 1882–1967) • 1933 • Oil on canvas</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 4 — Untitled (abstract)</span>
+              <span class="meta">Joseph Kaplan (American, born Russia, 1900–1980) • 20th century • Tempera on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 5 — Perplexity AI, <em>Urban Solitude</em></span>
+              <span class="meta">American • 2026 • Oil on canvas, 48 × 72 inches • AI-generated for Nasher Museum digital humanities project (user prompt) • Object no. 2026.DH.001</span>
+            </li>
+          </ol>
+          </details>
+        </div>
+      </section>
+
+      <!-- Right -->
+      
+      <section class="card">
+        <h2>Alignment</h2>
+        <p class="small" style="margin-top:0;">
+          Check the artworks that matched the <b>reference plan</b>. The score updates automatically.
+          (You can tap an image to view it larger.)
+        </p>
+
+        <div class="thumbGrid" id="thumbGrid">
+          
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="1">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot1.jpg" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot1.jpg" alt="L. B. Johnson: MURDERER">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 1 — L. B. Johnson: MURDERER</p>
+                <p class="thumbSub">Mark di Suvero • 1967 • Lithograph on paper</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="2">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot2.jpg" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot2.jpg" alt="Miami Masters">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 2 — Miami Masters</p>
+                <p class="thumbSub">Malcolm Morley • 20th c. • Lithograph on paper</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="3">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot3.jpg" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot3.jpg" alt="Shame to All but to the Dead">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 3 — Shame to All but to the Dead</p>
+                <p class="thumbSub">David Davidovich Burliuk • 1933 • Oil on canvas</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="4">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot4.jpg" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot4.jpg" alt="Untitled (abstract)">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 4 — Untitled (abstract)</p>
+                <p class="thumbSub">Joseph Kaplan • 20th c. • Tempera on paper</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="5">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot5.jpg" data-caption="Reference plan image for Slot 5. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot5.jpg" alt="Perplexity AI, Urban Solitude">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 5 — Perplexity AI, Urban Solitude</p>
+                <p class="thumbSub">American • 2026 • AI-generated oil on canvas (project prompt)</p>
+              </div>
+            </button>
+          </div>
+        
+        </div>
+
+        <div class="controlsRow">
+          <button class="btnSmall" id="clearChecks" type="button">Clear checks</button>
+        </div>
+
+        <div class="scoreBox" style="margin-top:12px;">
+          <div class="scoreRow">
+            <div><b>Matched:</b> <span id="matchedText">0 / 5</span></div>
+            <div><b>Alignment:</b> <span id="scoreText">0%</span></div>
+          </div>
+          <div class="hint">
+            Enter the <b>matched number</b> (0–5) in the Google Form below. The percentage is shown for your reference.
+          </div>
+        </div>
+
+        <div id="approvalPanel" class="approvalPanel" aria-live="polite">
+          <div class="approvalHeader">
+            <div class="approvalTitle">Approval status</div>
+            <div id="approvalBadge" class="badge">Pending</div>
+          </div>
+          <div id="approvalMessage" class="approvalMessage">
+            Check the matched artworks to generate an approval status.
+          </div>
+          <div id="approvalNext" class="approvalNext"></div>
+          <div id="confetti" class="confetti" aria-hidden="true"></div>
+        </div>
+
+        <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Artwork preview">
+          <div class="modalPanel">
+            <div class="modalBar">
+              <b id="modalTitle">Artwork preview</b>
+              <button class="modalClose" type="button" id="modalClose">Close</button>
+            </div>
+            <img class="modalImg" id="modalImg" alt="Artwork preview">
+            <div class="modalCaption" id="modalCaption"></div>
+          </div>
+        </div>
+<h2 style="margin-top:14px;">Submit for approval once completed</h2>
+        <p class="small">Your response is saved automatically. Please do not include any sensitive personal information.</p>
+
+        <div class="iframeWrap">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScMION9rtL1KWnWZyxXPGl-17TAo0CWgTb7gEnnQtEzaIymYA/viewform?embedded=true"
+            title="Everyday Grandeur — Curatorial Feedback Form"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          >Loading…</iframe>
+        </div>
+
+        <div class="actions">
+          <a class="btn btnPrimary" href="https://framevr.io/curatorial-constraints-cmac-exhibition#entrance">
+            Return to Exhibition
+          </a>
+        </div>
+
+        <p class="small">
+          Tip for museum-floor use: after submitting the form, use <b>Return to Exhibition</b> to bring the next player back to the starting point.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+
+    (function(){
+      const TOTAL_SLOTS = 5;
+
+      const matchedText = document.getElementById('matchedText');
+      const scoreText = document.getElementById('scoreText');
+
+      const badge = document.getElementById('approvalBadge');
+      const msg = document.getElementById('approvalMessage');
+      const next = document.getElementById('approvalNext');
+      const confetti = document.getElementById('confetti');
+
+      const boxes = Array.from(document.querySelectorAll('.matchBox'));
+      const clearBtn = document.getElementById('clearChecks');
+
+      const modal = document.getElementById('imgModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalCaption = document.getElementById('modalCaption');
+      const modalClose = document.getElementById('modalClose');
+      const modalTitle = document.getElementById('modalTitle');
+
+      function setBadge(text, cls){
+        badge.className = 'badge ' + cls;
+        badge.textContent = text;
+      }
+
+      function clearConfetti(){ confetti.innerHTML = ''; }
+
+      function popConfetti(){
+        clearConfetti();
+
+        const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#111827';
+        const palette = [accent, '#111827', '#4b5563', '#9ca3af', '#f3f4f6', '#10b981', '#f59e0b'];
+
+        const pieces = 95;
+        for(let i=0;i<pieces;i++){ 
+          const p = document.createElement('div');
+          p.className = 'confettiPiece';
+          p.style.left = (Math.random()*100) + '%';
+
+          const w = 6 + Math.random()*10;
+          const h = 10 + Math.random()*18;
+          p.style.width = w + 'px';
+          p.style.height = h + 'px';
+
+          p.style.background = palette[Math.floor(Math.random()*palette.length)];
+          p.style.animationDelay = (Math.random()*220) + 'ms';
+
+          confetti.appendChild(p);
+        }
+
+        const sparkles = 30;
+        for(let i=0;i<sparkles;i++){
+          const s = document.createElement('div');
+          s.className = 'sparkle';
+          s.style.left = (6 + Math.random()*88) + '%';
+          s.style.background = palette[Math.floor(Math.random()*palette.length)];
+          s.style.animationDelay = (Math.random()*260) + 'ms';
+          confetti.appendChild(s);
+        }
+      }
+
+      function updateApproval(score){
+        clearConfetti();
+
+        if(score === 100){
+          setBadge('Approved for Opening', 'badgeApproved');
+          msg.textContent = 'Work: Fantastic. Your installation aligns fully with the reference plan.';
+          next.textContent = 'No additional documentation is required. The gallery is cleared for opening.';
+          popConfetti();
+          return;
+        }
+
+        if(score >= 75){
+          setBadge('Provisional Approval — Brief Review', 'badgeConditional');
+          msg.textContent = 'Your installation demonstrates strong alignment with the reference framework, with selective curatorial variation.';
+          next.textContent = 'To finalize approval, please provide a brief summary (2–4 sentences) explaining your interpretive choices and how they satisfy the exhibition constraints.';
+          return;
+        }
+
+        setBadge('Approval Pathway — Extended Curatorial Review', 'badgeReview');
+        msg.textContent = 'Your installation reflects a distinct curatorial interpretation relative to the reference framework.';
+        next.textContent = 'To proceed toward approval, you may either re-curate selected works to strengthen structural alignment, or provide detailed and precise reasoning demonstrating how your curatorial strategy fulfills the thematic, material, and contextual objectives of the gallery. All curatorial approaches are valid when clearly articulated.';
+      }
+
+      function update(){
+        const matched = boxes.filter(b => b.checked).length;
+        const score = Math.round((matched / TOTAL_SLOTS) * 100);
+
+        matchedText.textContent = matched + ' / ' + TOTAL_SLOTS;
+        scoreText.textContent = score + '%';
+
+        updateApproval(score);
+      }
+
+      boxes.forEach(b => b.addEventListener('change', update));
+
+      clearBtn.addEventListener('click', () => {
+        boxes.forEach(b => b.checked = false);
+        update();
+      });
+
+      function openModal(src, caption, title){
+        modalImg.src = src;
+        modalCaption.textContent = caption || '';
+        modalTitle.textContent = title || 'Artwork preview';
+        modal.setAttribute('open', '');
+      }
+
+      function closeModal(){
+        modal.removeAttribute('open');
+        modalImg.src = '';
+      }
+
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.thumbBtn');
+        if(!btn) return;
+        const src = btn.getAttribute('data-full') || btn.querySelector('img')?.src;
+        const cap = btn.getAttribute('data-caption') || '';
+        const ttl = btn.querySelector('.thumbTitle')?.textContent || 'Artwork preview';
+        if(src) openModal(src, cap, ttl);
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && modal.hasAttribute('open')) closeModal();
+      });
+
+      update();
+    })();
+    
+  </script>
+</body>
+</html>
