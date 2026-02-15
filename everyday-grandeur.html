@@ -3,742 +3,408 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Everyday Grandeur — Curatorial Review Submission</title>
-
+  <title>Everyday Grandeur — Curatorial Review</title>
   <style>
     :root{
-      --accent:#005555; /* Everyday Grandeur (Cyan) */
-      --bg:#f3f4f6;
+      --bg:#f6f7f8;
       --panel:#ffffff;
       --text:#111827;
-      --muted:#4b5563;
+      --muted:#6b7280;
       --line:#e5e7eb;
-      --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --radius:16px;
+      --shadow:0 8px 24px rgba(0,0,0,.06);
+      --radius:14px;
+      --max:1050px;
     }
-
-    *{ box-sizing:border-box; }
-    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
-    .wrap{ max-width: 1060px; margin: 0 auto; padding: 28px 18px 44px; }
-
-    header{
-      background: linear-gradient(135deg, rgba(0,85,85,.10), rgba(0,85,85,.04));
-      border: 1px solid var(--line);
-      border-left: 10px solid var(--accent);
-      border-radius: var(--radius);
-      padding: 18px 18px 16px;
-      box-shadow: var(--shadow);
-    }
-
-    h1{ margin:0; font-size: 26px; letter-spacing: .2px; }
-    .sub{
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 15px;
-      max-width: 92ch;
-      white-space: pre-line;
-    }
-
-    .pillrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 7px 10px; border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.65);
-      color: var(--muted); font-size: 13px;
-    }
-
-    .grid{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
-    @media (min-width: 980px){ .grid{ grid-template-columns: 1.05fr .95fr; align-items:start; } }
-
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-    }
-    h2{ margin: 0 0 10px; font-size: 18px; }
-
-    .kvs{ display:grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
-    .kv{
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: #fafafa;
-    }
-    .kv b{ display:block; margin-bottom: 2px; font-size: 14px; color: var(--text); }
-    .kv span{ color: var(--muted); font-size: 14px; line-height: 1.4; }
-
-    .note{
-      border-left: 6px solid var(--accent);
-      background: rgba(0,85,85,.06);
-      border-radius: 12px;
-      padding: 10px 12px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 12px 0 0;
-      font-size: 14px;
-    }
-
-    .sectionTitle{ margin-top: 14px; font-size: 15px; color: var(--text); font-weight: 700; }
-
-    ol{ margin: 8px 0 0 18px; padding: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
-    li{ margin: 10px 0; }
-    .workTitle{ color: var(--text); font-weight: 700; }
-    .meta{ display:block; margin-top: 2px; }
-
-    .slots{ margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
-
-    .small{ color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; }
-    .select{ padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:#fff; margin-left: 10px; }
-
-    .scoreBox{
-      border:1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      background: #fafafa;
-      margin-top: 10px;
-    }
-    .scoreRow{ display:flex; gap:18px; flex-wrap:wrap; margin-top: 8px; font-size: 14px; }
-    .scoreRow b{ color: var(--text); }
-    .hint{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
-
-    .approvalPanel{
-      margin-top: 12px;
-      border:1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      background:#fff;
-      position: relative;
-      overflow: hidden;
-    }
-    .approvalHeader{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-    .approvalTitle{ font-weight: 750; font-size: 14px; letter-spacing: .2px; }
-    .badge{
-      font-size: 12px; font-weight: 750;
-      padding: 6px 10px; border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #f9fafb; color: var(--muted);
-      white-space: nowrap;
-    }
-    .badgeApproved{
-      border-color: rgba(0,0,0,.08);
-      background: rgba(16,185,129,.16);
-      color: #065f46;
-    }
-    .badgeConditional{
-      border-color: rgba(0,0,0,.08);
-      background: rgba(245,158,11,.18);
-      color: #92400e;
-    }
-    .badgeReview{
-      border-color: rgba(0,0,0,.08);
-      background: rgba(59,130,246,.16);
-      color: #1e40af;
-    }
-    .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
-    .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
-
-    .confetti{ position:absolute; inset:0; pointer-events:none; }
-    .confettiPiece{
-      position:absolute;
-      top:-16px;
-      border-radius: 2px;
-      opacity: 0;
-      transform: translateY(0) rotate(0deg);
-      animation: confettiFall 1600ms cubic-bezier(.2,.9,.2,1) forwards;
-    }
-    .sparkle{
-      position:absolute;
-      top: 14px;
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      opacity: 0;
-      animation: sparklePop 1000ms ease-out forwards;
-      filter: blur(.2px);
-    }
-    @keyframes confettiFall{
-      0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
-      12%  { opacity: 1; }
-      100% { opacity: 0; transform: translateY(420px) rotate(620deg); }
-    }
-    @keyframes sparklePop{
-      0%   { opacity: 0; transform: scale(.6); }
-      20%  { opacity: 1; transform: scale(1.35); }
-      100% { opacity: 0; transform: scale(2.0); }
-    }
-
-    .iframeWrap{
-      margin-top: 10px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow:hidden;
-      background:#fff;
-    }
-    iframe{
-      width: 100%;
-      height: 980px;
-      border: 0;
-      display:block;
-      background:#fff;
-    }
-
-    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding: 12px 14px; border-radius: 14px; text-decoration:none;
-      border: 1px solid var(--line);
-      color: var(--text); background: #fff; font-weight: 650;
-    }
-    .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
-  
-    /* --- Visual slot checker (less text, more visuals) --- */
-    .thumbGrid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-    @media (min-width: 520px){ .thumbGrid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
-    @media (min-width: 980px){ .thumbGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
-
-    .thumb{
-      border:1px solid var(--line);
-      border-radius: 14px;
-      overflow:hidden;
-      background:#fff;
-      box-shadow: 0 8px 18px rgba(0,0,0,.06);
-      position:relative;
-    }
-    .thumbBtn{
-      display:block;
-      padding:0;
-      border:0;
-      background:transparent;
-      width:100%;
-      cursor:pointer;
-      text-align:left;
-    }
-    .thumbImg{
-      width:100%;
-      height: 150px;
-      object-fit: cover;
-      display:block;
-      background:#f3f4f6;
-    }
-    .thumbMeta{
-      padding: 10px 10px 12px;
-      border-top: 1px solid var(--line);
-    }
-    .thumbTitle{
-      font-weight: 750;
-      font-size: 13px;
-      line-height: 1.3;
+    *{box-sizing:border-box}
+    body{
       margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:var(--bg);
+      color:var(--text);
     }
-    .thumbSub{
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.35;
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 56px;}
+    header{margin-bottom:14px;}
+    h1{font-size:24px; font-weight:600; margin:0 0 6px; letter-spacing:.2px;}
+    .sub{color:var(--muted); font-size:13px; line-height:1.45; margin:0;}
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
-    .checkWrap{
-      position:absolute;
-      top:10px;
-      left:10px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.90);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(6px);
-    }
-    .checkWrap input{ width: 18px; height: 18px; }
-    .checkWrap span{ font-size: 12px; font-weight: 750; color: var(--text); }
-
-    .controlsRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
-    .btnSmall{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background:#fff;
-      color: var(--text);
-      font-weight: 650;
+    .pad{padding:16px 16px;}
+    .stack{display:flex; flex-direction:column; gap:14px;}
+    /* Collapsible boxes */
+    details.panel{overflow:hidden}
+    details > summary{
+      list-style:none;
       cursor:pointer;
+      padding:14px 16px;
+      font-weight:600;
+      border-bottom:1px solid var(--line);
+      user-select:none;
     }
-
-    /* Modal */
-    .modal{
-      position:fixed;
-      inset:0;
-      background: rgba(17,24,39,.66);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 9999;
-    }
-    .modal[open]{ display:flex; }
-    .modalPanel{
-      width:min(980px, 100%);
+    details > summary::-webkit-details-marker{display:none}
+    details[open] > summary{border-bottom:1px solid var(--line);}
+    .detailsBody{padding:14px 16px; color:var(--text);}
+    .detailsBody p, .detailsBody li{color:var(--text); font-size:14px; line-height:1.55}
+    .detailsBody ul{margin:8px 0 0 18px}
+    /* Curatorial review notes */
+    .notesArea{
+      width:100%;
+      min-height:110px;
+      resize:vertical;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px 12px;
+      font-size:14px;
+      line-height:1.5;
+      outline:none;
       background:#fff;
-      border-radius: 18px;
+    }
+    .notesMeta{display:flex; justify-content:space-between; gap:10px; margin-top:8px; color:var(--muted); font-size:12px;}
+    /* Expected artworks row */
+    .rowTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:12px;}
+    .rowTitle h2{font-size:16px; margin:0; font-weight:650;}
+    .hint{font-size:12px; color:var(--muted); margin:0;}
+    .slotsRow{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:minmax(180px, 1fr);
+      gap:14px;
+      overflow-x:auto;
+      padding:12px 2px 2px;
+      scroll-snap-type:x mandatory;
+    }
+    .slotsRow::-webkit-scrollbar{height:10px}
+    .slotsRow::-webkit-scrollbar-thumb{background:#d1d5db; border-radius:999px}
+    .slotCard{
+      scroll-snap-align:start;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 4px 14px rgba(0,0,0,.04);
       overflow:hidden;
-      border: 1px solid rgba(255,255,255,.25);
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
-    .modalBar{
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-      background: #fafafa;
+      flex-direction:column;
+      min-width:180px;
     }
-    .modalBar b{ font-size: 14px; }
-    .modalClose{
+    .slotHead{padding:10px 12px; border-bottom:1px solid var(--line);}
+    .slotCheck{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--text);}
+    .slotCheck input{transform:translateY(1px)}
+    .imgBtn{border:0; background:transparent; padding:0; cursor:pointer;}
+    .slotCard img{display:block; width:100%; aspect-ratio: 1 / 1; object-fit:cover;}
+    /* Alignment panel */
+    .alignGrid{display:grid; grid-template-columns:1fr; gap:10px;}
+    @media (min-width: 720px){ .alignGrid{grid-template-columns: repeat(3, 1fr);} }
+    .metric{border:1px solid var(--line); border-radius:12px; padding:12px; background:#fff;}
+    .metric .k{color:var(--muted); font-size:12px; margin:0 0 6px;}
+    .metric .v{font-size:18px; font-weight:700; margin:0;}
+    .metric select{width:100%; border:1px solid var(--line); border-radius:10px; padding:10px; font-size:14px;}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
+    .btn{
       border:1px solid var(--line);
       background:#fff;
-      border-radius: 12px;
-      padding: 10px 12px;
+      padding:10px 12px;
+      border-radius:12px;
       cursor:pointer;
-      font-weight: 700;
+      font-weight:600;
+      font-size:13px;
     }
-    .modalImg{
-      width:100%;
-      height: min(74vh, 720px);
-      object-fit: contain;
-      display:block;
-      background:#111827;
+    .btn:hover{background:#f3f4f6}
+    /* Lightbox */
+    .lightbox{
+      position:fixed; inset:0;
+      display:none;
+      background:rgba(17,24,39,.86);
+      align-items:center; justify-content:center;
+      padding:20px;
+      z-index:9999;
     }
-    .modalCaption{
-      padding: 12px 14px 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    details{
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 10px 12px;
-      background: #fafafa;
-      margin-top: 10px;
-    }
-    summary{
+    .lightbox.open{display:flex;}
+    .lightbox img{max-width:min(1100px, 95vw); max-height:90vh; border-radius:14px;}
+    .lbClose{
+      position:fixed; top:16px; right:16px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.24);
+      color:#fff;
+      padding:10px 12px;
+      border-radius:999px;
       cursor:pointer;
-      font-weight: 800;
-      color: var(--text);
-      list-style: none;
+      font-weight:700;
     }
-    summary::-webkit-details-marker{ display:none; }
-
+    /* Form iframe */
+    .formFrame{width:100%; height:680px; border:0; border-radius:12px;}
+    .mutedSmall{color:var(--muted); font-size:12px; margin:10px 0 0;}
   </style>
 </head>
-
 <body>
   <div class="wrap">
     <header>
-      <h1>Curatorial Review Submission</h1>
-      <p class="sub">Everyday Grandeur: American Art Reimagined
-
-Thank you for your curatorial contribution to this installation.
-The gallery has been completed under defined material, authorial, and representational constraints.
-
-This form records alignment with the original curatorial framework and identifies areas of interpretive divergence.
-
-Proceed with the review below.</p>
-
-      <div class="pillrow">
-        <div class="pill">Estimated time: 2–4 minutes</div>
-        <div class="pill">Responses are recorded for review</div>
-        <div class="pill">Optional identifying info</div>
-      </div>
+      <h1>Everyday Grandeur — Curatorial Review</h1>
+      <p class="sub">A lightweight feedback sheet: open the sections you need, check matched slots, and the alignment score updates automatically.</p>
     </header>
 
-    <div class="grid">
-      <!-- Left -->
-      <section class="card">
-        <h2>Gallery context and constraints</h2>
+    <div class="stack">
 
-        <div class="kvs">
-          <div class="kv">
-            <b>Room</b>
-            <span>Everyday Grandeur: American Art Reimagined</span>
-          </div>
-          <div class="kv">
-            <b>Task</b>
-            <span>Complete 5 remaining slots while maintaining the exhibition constraints.</span>
-          </div>
+      <section class="panel pad">
+        <div class="rowTitle">
+          <h2>Curatorial Review</h2>
+          <p class="hint">Notes are saved in this browser.</p>
         </div>
-
-        <div class="sectionTitle">Key constraints</div>
-        <div class="kvs">
-          <div class="kv"><b>Print techniques</b><span>At least one work each in lithograph, etching, engraving, and linocut</span></div>
-          <div class="kv"><b>Artist limit</b><span>No more than two works by Winslow Homer</span></div>
-          <div class="kv"><b>Immigrant representation</b><span>At least four works by immigrant artists</span></div>
-          <div class="kv"><b>Contemporary inclusion</b><span>One AI-generated work</span></div>
-        </div>
-
-        <div class="note">
-          <b>Review note:</b> The lists below reflect the curatorial team’s reference plan.
-          If your final selection aligns with it, that is acceptable.
-          If your selection differs, please document your interpretive rationale in the form.
-        </div>
-
-        <div class="sectionTitle">Reference plan for Everyday Grandeur</div>
-
-        <details>
-          <summary>Already placed artworks (tap to expand)</summary>
-          <ol>
-          <li>
-            <span class="workTitle">Untitled</span>
-            <span class="meta">Jack Youngerman (Born in St. Louis, Missouri, 1926–2020) • 1951 • Linocut on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">Maid Cutting Ice</span>
-            <span class="meta">John Sloan (American, 1871–1951) • 1918 • Oil with tempera and oil-varnish glazes on canvas</span>
-          </li>
-          <li>
-            <span class="workTitle">Palozzo Florence</span>
-            <span class="meta">Rudy Pozzatti (American, born 1925) • 1955 • Etching, engraving on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">Skating On the Ladies' Skating Pond In Central Park, New York</span>
-            <span class="meta">Winslow Homer (American, 1836–1910) • 1860 • Wood engraving on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">A Parisian Ball — Dancing at the Mabille, Paris</span>
-            <span class="meta">Winslow Homer (American, 1836–1910) • 1867 • Wood engraving on paper</span>
-          </li>
-        </ol>
-        </details>
-
-        <div class="slots">
-          <details open>
-            <summary>Expected artworks for the empty slots (reference plan)</summary>
-            <ol>
-            <li>
-              <span class="workTitle">Slot 1 — L. B. Johnson: MURDERER (from the portfolio <em>Artists and Writers Protest Against the War in Viet Nam</em>)</span>
-              <span class="meta">Mark di Suvero (American, born China, 1933) • 1967 • Lithograph on paper • Printer: Artists and Writers Protest, Inc., New York, NY • Publisher: Chiron Press, Inc., New York, NY</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 2 — Miami Masters</span>
-              <span class="meta">Malcolm Morley (Born in Great Britain, 1931–2018) • 20th century • Lithograph on paper • Other: Shorewood Fine Art Books, Inc. • Printer: Shorewood Atelier</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 3 — Shame to All but to the Dead</span>
-              <span class="meta">David Davidovich Burliuk (Ukrainian, 1882–1967) • 1933 • Oil on canvas</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 4 — Untitled (abstract)</span>
-              <span class="meta">Joseph Kaplan (American, born Russia, 1900–1980) • 20th century • Tempera on paper</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 5 — Perplexity AI, <em>Urban Solitude</em></span>
-              <span class="meta">American • 2026 • Oil on canvas, 48 × 72 inches • AI-generated for Nasher Museum digital humanities project (user prompt) • Object no. 2026.DH.001</span>
-            </li>
-          </ol>
-          </details>
+        <textarea id="notes" class="notesArea" placeholder="Write curatorial feedback here…"></textarea>
+        <div class="notesMeta">
+          <span id="saveState">Not saved yet</span>
+          <span id="charCount">0 chars</span>
         </div>
       </section>
 
-      <!-- Right -->
-      
-      <section class="card">
-        <h2>Alignment</h2>
-        <p class="small" style="margin-top:0;">
-          Check the artworks that matched the <b>reference plan</b>. The score updates automatically.
-          (You can tap an image to view it larger.)
-        </p>
-
-        <div class="thumbGrid" id="thumbGrid">
-          
-          <div class="thumb">
-            <label class="checkWrap">
-              <input type="checkbox" class="matchBox" data-slot="1">
-              <span>Matched</span>
-            </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot1.jpg" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot1.jpg" alt="L. B. Johnson: MURDERER">
-              <div class="thumbMeta">
-                <p class="thumbTitle">Slot 1 — L. B. Johnson: MURDERER</p>
-                <p class="thumbSub">Mark di Suvero • 1967 • Lithograph on paper</p>
-              </div>
-            </button>
-          </div>
-        
-          <div class="thumb">
-            <label class="checkWrap">
-              <input type="checkbox" class="matchBox" data-slot="2">
-              <span>Matched</span>
-            </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot2.jpg" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot2.jpg" alt="Miami Masters">
-              <div class="thumbMeta">
-                <p class="thumbTitle">Slot 2 — Miami Masters</p>
-                <p class="thumbSub">Malcolm Morley • 20th c. • Lithograph on paper</p>
-              </div>
-            </button>
-          </div>
-        
-          <div class="thumb">
-            <label class="checkWrap">
-              <input type="checkbox" class="matchBox" data-slot="3">
-              <span>Matched</span>
-            </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot3.jpg" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot3.jpg" alt="Shame to All but to the Dead">
-              <div class="thumbMeta">
-                <p class="thumbTitle">Slot 3 — Shame to All but to the Dead</p>
-                <p class="thumbSub">David Davidovich Burliuk • 1933 • Oil on canvas</p>
-              </div>
-            </button>
-          </div>
-        
-          <div class="thumb">
-            <label class="checkWrap">
-              <input type="checkbox" class="matchBox" data-slot="4">
-              <span>Matched</span>
-            </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot4.jpg" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot4.jpg" alt="Untitled (abstract)">
-              <div class="thumbMeta">
-                <p class="thumbTitle">Slot 4 — Untitled (abstract)</p>
-                <p class="thumbSub">Joseph Kaplan • 20th c. • Tempera on paper</p>
-              </div>
-            </button>
-          </div>
-        
-          <div class="thumb">
-            <label class="checkWrap">
-              <input type="checkbox" class="matchBox" data-slot="5">
-              <span>Matched</span>
-            </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot5.jpg" data-caption="Reference plan image for Slot 5. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot5.jpg" alt="Perplexity AI, Urban Solitude">
-              <div class="thumbMeta">
-                <p class="thumbTitle">Slot 5 — Perplexity AI, Urban Solitude</p>
-                <p class="thumbSub">American • 2026 • AI-generated oil on canvas (project prompt)</p>
-              </div>
-            </button>
-          </div>
-        
+      <details class="panel" id="constraintsBox">
+        <summary>Gallery context and constraints</summary>
+        <div class="detailsBody">
+          <ul><li>At least 1 of each: lithograph, etching, engraving, linocut</li><li>No more than 2 Homers</li><li>At least 4 immigrant artists</li><li>One AI work</li></ul>
         </div>
+      </details>
 
-        <div class="controlsRow">
-          <button class="btnSmall" id="clearChecks" type="button">Clear checks</button>
+      <details class="panel" id="placedBox">
+        <summary>Already placed artworks</summary>
+        <div class="detailsBody">
+          <p class="mutedSmall">Optional: paste a short list, or link to your plan. (This stays collapsible to keep the page clean.)</p>
+          <div id="placedList" contenteditable="true" style="border:1px solid var(--line); border-radius:12px; padding:12px; min-height:90px; background:#fff; font-size:14px; line-height:1.55;"></div>
+          <p class="mutedSmall">Tip: you can paste bullets here. This field is saved in this browser.</p>
         </div>
+      </details>
 
-        <div class="scoreBox" style="margin-top:12px;">
-          <div class="scoreRow">
-            <div><b>Matched:</b> <span id="matchedText">0 / 5</span></div>
-            <div><b>Alignment:</b> <span id="scoreText">0%</span></div>
-          </div>
-          <div class="hint">
-            Enter the <b>matched number</b> (0–5) in the Google Form below. The percentage is shown for your reference.
-          </div>
+      <section class="panel pad">
+        <div class="rowTitle">
+          <h2>Expected artworks for empty slots</h2>
+          <p class="hint">Scroll horizontally if needed. Click an image to zoom.</p>
         </div>
-
-        <div id="approvalPanel" class="approvalPanel" aria-live="polite">
-          <div class="approvalHeader">
-            <div class="approvalTitle">Approval status</div>
-            <div id="approvalBadge" class="badge">Pending</div>
-          </div>
-          <div id="approvalMessage" class="approvalMessage">
-            Check the matched artworks to generate an approval status.
-          </div>
-          <div id="approvalNext" class="approvalNext"></div>
-          <div id="confetti" class="confetti" aria-hidden="true"></div>
+        <div class="slotsRow" id="slotsRow">
+          <div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="1"> <span>Slot 1</span>
+          </label>
         </div>
-
-        <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Artwork preview">
-          <div class="modalPanel">
-            <div class="modalBar">
-              <b id="modalTitle">Artwork preview</b>
-              <button class="modalClose" type="button" id="modalClose">Close</button>
-            </div>
-            <img class="modalImg" id="modalImg" alt="Artwork preview">
-            <div class="modalCaption" id="modalCaption"></div>
-          </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 1">
+          <img src="assets/everyday/slot1.jpg" alt="Expected artwork for Slot 1" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%201</text></svg>';">
+        </button>
+      </div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="2"> <span>Slot 2</span>
+          </label>
         </div>
-<h2 style="margin-top:14px;">Submit for approval once completed</h2>
-        <p class="small">Your response is saved automatically. Please do not include any sensitive personal information.</p>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 2">
+          <img src="assets/everyday/slot2.jpg" alt="Expected artwork for Slot 2" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%202</text></svg>';">
+        </button>
+      </div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="3"> <span>Slot 3</span>
+          </label>
+        </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 3">
+          <img src="assets/everyday/slot3.jpg" alt="Expected artwork for Slot 3" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%203</text></svg>';">
+        </button>
+      </div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="4"> <span>Slot 4</span>
+          </label>
+        </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 4">
+          <img src="assets/everyday/slot4.jpg" alt="Expected artwork for Slot 4" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%204</text></svg>';">
+        </button>
+      </div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="5"> <span>Slot 5</span>
+          </label>
+        </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 5">
+          <img src="assets/everyday/slot5.jpg" alt="Expected artwork for Slot 5" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%205</text></svg>';">
+        </button>
+      </div>
+        </div>
+      </section>
 
-        <div class="iframeWrap">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLScMION9rtL1KWnWZyxXPGl-17TAo0CWgTb7gEnnQtEzaIymYA/viewform?embedded=true"
-            title="Everyday Grandeur — Curatorial Feedback Form"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          >Loading…</iframe>
+      <section class="panel pad">
+        <div class="rowTitle">
+          <h2>Alignment</h2>
+          <p class="hint">Auto-calculated from checked slots.</p>
+        </div>
+        <div class="alignGrid">
+          <div class="metric">
+            <p class="k">Matched</p>
+            <p class="v"><span id="matched">0</span> / 5</p>
+          </div>
+          <div class="metric">
+            <p class="k">Alignment</p>
+            <p class="v"><span id="alignment">0</span>%</p>
+          </div>
+          <div class="metric">
+            <p class="k">Approval status</p>
+            <select id="approval">
+              <option value="same">Same</option>
+              <option value="revise">Needs revision</option>
+              <option value="approve">Approved</option>
+            </select>
+          </div>
         </div>
 
         <div class="actions">
-          <a class="btn btnPrimary" href="https://framevr.io/curatorial-constraints-cmac-exhibition#entrance">
-            Return to Exhibition
-          </a>
+          <button class="btn" type="button" id="resetBtn">Reset checks</button>
+          <button class="btn" type="button" id="openConstraints">Open constraints</button>
+          <button class="btn" type="button" id="openPlaced">Open already placed</button>
         </div>
-
-        <p class="small">
-          Tip for museum-floor use: after submitting the form, use <b>Return to Exhibition</b> to bring the next player back to the starting point.
-        </p>
+        <p class="mutedSmall">If you’re using the Google Form below, you can copy the matched number directly.</p>
       </section>
+
+      <details class="panel" id="formBox" open>
+        <summary>Feedback form</summary>
+        <div class="detailsBody">
+          <p class='mutedSmall'>Paste your Google Form embed link into the code where indicated to show it here.</p>
+        </div>
+      </details>
+
     </div>
   </div>
 
-  <script>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lbClose" id="lbClose" type="button">× Close</button>
+    <img id="lbImg" alt="Full view">
+  </div>
 
-    (function(){
-      const TOTAL_SLOTS = 5;
+<script>
+(() => {
+  const STORAGE_KEY = "cmac_curatorial_everyday_grandeur";
+  const notes = document.getElementById("notes");
+  const placed = document.getElementById("placedList");
+  const approval = document.getElementById("approval");
+  const saveState = document.getElementById("saveState");
+  const charCount = document.getElementById("charCount");
 
-      const matchedText = document.getElementById('matchedText');
-      const scoreText = document.getElementById('scoreText');
+  const cbs = Array.from(document.querySelectorAll(".slotCB"));
+  const matchedEl = document.getElementById("matched");
+  const alignmentEl = document.getElementById("alignment");
 
-      const badge = document.getElementById('approvalBadge');
-      const msg = document.getElementById('approvalMessage');
-      const next = document.getElementById('approvalNext');
-      const confetti = document.getElementById('confetti');
+  const lightbox = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg");
+  const lbClose = document.getElementById("lbClose");
 
-      const boxes = Array.from(document.querySelectorAll('.matchBox'));
-      const clearBtn = document.getElementById('clearChecks');
+  function compute() {
+    const checked = cbs.filter(cb => cb.checked).length;
+    matchedEl.textContent = checked;
+    alignmentEl.textContent = Math.round((checked / cbs.length) * 100);
+  }
 
-      const modal = document.getElementById('imgModal');
-      const modalImg = document.getElementById('modalImg');
-      const modalCaption = document.getElementById('modalCaption');
-      const modalClose = document.getElementById('modalClose');
-      const modalTitle = document.getElementById('modalTitle');
+  function markSaved() {
+    saveState.textContent = "Saved";
+    saveState.style.color = "var(--muted)";
+  }
+  function markDirty() {
+    saveState.textContent = "Saving…";
+    saveState.style.color = "var(--muted)";
+  }
 
-      function setBadge(text, cls){
-        badge.className = 'badge ' + cls;
-        badge.textContent = text;
+  function save() {
+    const data = {
+      notes: notes.value,
+      placed: placed.innerHTML,
+      approval: approval.value,
+      checks: cbs.map(cb => cb.checked)
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    markSaved();
+  }
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (typeof data.notes === "string") notes.value = data.notes;
+      if (typeof data.placed === "string") placed.innerHTML = data.placed;
+      if (typeof data.approval === "string") approval.value = data.approval;
+      if (Array.isArray(data.checks)) {
+        data.checks.forEach((v, idx) => { if (cbs[idx]) cbs[idx].checked = !!v; });
       }
+    } catch(e) {}
+    compute();
+    charCount.textContent = (notes.value || "").length + " chars";
+    saveState.textContent = "Loaded";
+  }
 
-      function clearConfetti(){ confetti.innerHTML = ''; }
+  // Lightbox wiring
+  document.querySelectorAll(".imgBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const img = btn.querySelector("img");
+      lbImg.src = img.currentSrc || img.src;
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden","false");
+    });
+  });
 
-      function popConfetti(){
-        clearConfetti();
+  function closeLb() {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden","true");
+    lbImg.src = "";
+  }
+  lbClose.addEventListener("click", closeLb);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLb();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLb();
+  });
 
-        const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#111827';
-        const palette = [accent, '#111827', '#4b5563', '#9ca3af', '#f3f4f6', '#10b981', '#f59e0b'];
+  // Update + save handlers (debounced)
+  let t = null;
+  function scheduleSave() {
+    markDirty();
+    clearTimeout(t);
+    t = setTimeout(save, 300);
+  }
 
-        const pieces = 95;
-        for(let i=0;i<pieces;i++){ 
-          const p = document.createElement('div');
-          p.className = 'confettiPiece';
-          p.style.left = (Math.random()*100) + '%';
+  cbs.forEach(cb => cb.addEventListener("change", () => {
+    compute();
+    scheduleSave();
+  }));
+  approval.addEventListener("change", scheduleSave);
 
-          const w = 6 + Math.random()*10;
-          const h = 10 + Math.random()*18;
-          p.style.width = w + 'px';
-          p.style.height = h + 'px';
+  notes.addEventListener("input", () => {
+    charCount.textContent = (notes.value || "").length + " chars";
+    scheduleSave();
+  });
+  placed.addEventListener("input", scheduleSave);
 
-          p.style.background = palette[Math.floor(Math.random()*palette.length)];
-          p.style.animationDelay = (Math.random()*220) + 'ms';
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    cbs.forEach(cb => cb.checked = false);
+    compute();
+    scheduleSave();
+  });
+  document.getElementById("openConstraints").addEventListener("click", () => {
+    document.getElementById("constraintsBox").open = true;
+    document.getElementById("constraintsBox").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  document.getElementById("openPlaced").addEventListener("click", () => {
+    document.getElementById("placedBox").open = true;
+    document.getElementById("placedBox").scrollIntoView({behavior:"smooth", block:"start"});
+  });
 
-          confetti.appendChild(p);
-        }
-
-        const sparkles = 30;
-        for(let i=0;i<sparkles;i++){
-          const s = document.createElement('div');
-          s.className = 'sparkle';
-          s.style.left = (6 + Math.random()*88) + '%';
-          s.style.background = palette[Math.floor(Math.random()*palette.length)];
-          s.style.animationDelay = (Math.random()*260) + 'ms';
-          confetti.appendChild(s);
-        }
-      }
-
-      function updateApproval(score){
-        clearConfetti();
-
-        if(score === 100){
-          setBadge('Approved for Opening', 'badgeApproved');
-          msg.textContent = 'Work: Fantastic. Your installation aligns fully with the reference plan.';
-          next.textContent = 'No additional documentation is required. The gallery is cleared for opening.';
-          popConfetti();
-          return;
-        }
-
-        if(score >= 75){
-          setBadge('Provisional Approval — Brief Review', 'badgeConditional');
-          msg.textContent = 'Your installation demonstrates strong alignment with the reference framework, with selective curatorial variation.';
-          next.textContent = 'To finalize approval, please provide a brief summary (2–4 sentences) explaining your interpretive choices and how they satisfy the exhibition constraints.';
-          return;
-        }
-
-        setBadge('Approval Pathway — Extended Curatorial Review', 'badgeReview');
-        msg.textContent = 'Your installation reflects a distinct curatorial interpretation relative to the reference framework.';
-        next.textContent = 'To proceed toward approval, you may either re-curate selected works to strengthen structural alignment, or provide detailed and precise reasoning demonstrating how your curatorial strategy fulfills the thematic, material, and contextual objectives of the gallery. All curatorial approaches are valid when clearly articulated.';
-      }
-
-      function update(){
-        const matched = boxes.filter(b => b.checked).length;
-        const score = Math.round((matched / TOTAL_SLOTS) * 100);
-
-        matchedText.textContent = matched + ' / ' + TOTAL_SLOTS;
-        scoreText.textContent = score + '%';
-
-        updateApproval(score);
-      }
-
-      boxes.forEach(b => b.addEventListener('change', update));
-
-      clearBtn.addEventListener('click', () => {
-        boxes.forEach(b => b.checked = false);
-        update();
-      });
-
-      function openModal(src, caption, title){
-        modalImg.src = src;
-        modalCaption.textContent = caption || '';
-        modalTitle.textContent = title || 'Artwork preview';
-        modal.setAttribute('open', '');
-      }
-
-      function closeModal(){
-        modal.removeAttribute('open');
-        modalImg.src = '';
-      }
-
-      document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.thumbBtn');
-        if(!btn) return;
-        const src = btn.getAttribute('data-full') || btn.querySelector('img')?.src;
-        const cap = btn.getAttribute('data-caption') || '';
-        const ttl = btn.querySelector('.thumbTitle')?.textContent || 'Artwork preview';
-        if(src) openModal(src, cap, ttl);
-      });
-
-      modalClose.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => {
-        if(e.target === modal) closeModal();
-      });
-      document.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape' && modal.hasAttribute('open')) closeModal();
-      });
-
-      update();
-    })();
-    
-  </script>
+  load();
+})();
+</script>
 </body>
 </html>
