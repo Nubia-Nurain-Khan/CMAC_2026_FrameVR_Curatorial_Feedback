@@ -3,407 +3,560 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Eastern Ink — Curatorial Review</title>
+  <title>Eastern Ink — Curatorial Review Submission</title>
+
   <style>
     :root{
-      --bg:#f6f7f8;
+      --accent:#550000; /* Eastern Ink (Maroon) */
+      --bg:#f3f4f6;
       --panel:#ffffff;
       --text:#111827;
-      --muted:#6b7280;
+      --muted:#4b5563;
       --line:#e5e7eb;
-      --shadow:0 8px 24px rgba(0,0,0,.06);
-      --radius:14px;
-      --max:1050px;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius:16px;
     }
-    *{box-sizing:border-box}
+
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:var(--bg);
-      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 56px;}
-    header{margin-bottom:14px;}
-    h1{font-size:24px; font-weight:600; margin:0 0 6px; letter-spacing:.2px;}
-    .sub{color:var(--muted); font-size:13px; line-height:1.45; margin:0;}
-    .panel{
-      background:var(--panel);
+
+    .wrap{ max-width: 1060px; margin: 0 auto; padding: 28px 18px 44px; }
+
+    header{
+      background: linear-gradient(135deg, rgba(85,0,0,.10), rgba(85,0,0,.04));
+      border: 1px solid var(--line);
+      border-left: 10px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    h1{ margin:0; font-size: 26px; letter-spacing: .2px; }
+
+    .sub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+      max-width: 92ch;
+      white-space: pre-line;
+    }
+
+    .pillrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px; border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.65);
+      color: var(--muted); font-size: 13px;
+    }
+
+    .grid{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+    @media (min-width: 980px){ .grid{ grid-template-columns: 1.05fr .95fr; align-items:start; } }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    h2{ margin: 0 0 10px; font-size: 18px; }
+
+    .kvs{ display:grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+    .kv{
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #fafafa;
+    }
+    .kv b{ display:block; margin-bottom: 2px; font-size: 14px; color: var(--text); }
+    .kv span{ color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+    .note{
+      border-left: 6px solid var(--accent);
+      background: rgba(85,0,0,.06);
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 12px 0 0;
+      font-size: 14px;
+    }
+
+    .sectionTitle{ margin-top: 14px; font-size: 15px; color: var(--text); font-weight: 700; }
+
+    ol{ margin: 8px 0 0 18px; padding: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    li{ margin: 10px 0; }
+    .workTitle{ color: var(--text); font-weight: 700; }
+    .meta{ display:block; margin-top: 2px; }
+
+    .slots{ margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+
+    .small{ color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; }
+
+    .select{
+      padding:8px 10px; border-radius:10px; border:1px solid var(--line);
+      background:#fff; margin-left: 10px;
+    }
+
+    .scoreBox{
       border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fafafa;
+      margin-top: 10px;
     }
-    .pad{padding:16px 16px;}
-    .stack{display:flex; flex-direction:column; gap:14px;}
-    /* Collapsible boxes */
-    details.panel{overflow:hidden}
-    details > summary{
-      list-style:none;
-      cursor:pointer;
-      padding:14px 16px;
-      font-weight:600;
-      border-bottom:1px solid var(--line);
-      user-select:none;
-    }
-    details > summary::-webkit-details-marker{display:none}
-    details[open] > summary{border-bottom:1px solid var(--line);}
-    .detailsBody{padding:14px 16px; color:var(--text);}
-    .detailsBody p, .detailsBody li{color:var(--text); font-size:14px; line-height:1.55}
-    .detailsBody ul{margin:8px 0 0 18px}
-    /* Curatorial review notes */
-    .notesArea{
-      width:100%;
-      min-height:110px;
-      resize:vertical;
+    .scoreRow{ display:flex; gap:18px; flex-wrap:wrap; margin-top: 8px; font-size: 14px; }
+    .scoreRow b{ color: var(--text); }
+    .hint{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    /* Approval panel */
+    .approvalPanel{
+      margin-top: 12px;
       border:1px solid var(--line);
-      border-radius:12px;
-      padding:12px 12px;
-      font-size:14px;
-      line-height:1.5;
-      outline:none;
+      border-radius: 14px;
+      padding: 12px;
       background:#fff;
+      position: relative;
+      overflow: hidden;
     }
-    .notesMeta{display:flex; justify-content:space-between; gap:10px; margin-top:8px; color:var(--muted); font-size:12px;}
-    /* Expected artworks row */
-    .rowTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:12px;}
-    .rowTitle h2{font-size:16px; margin:0; font-weight:650;}
-    .hint{font-size:12px; color:var(--muted); margin:0;}
-    .slotsRow{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:minmax(180px, 1fr);
-      gap:14px;
-      overflow-x:auto;
-      padding:12px 2px 2px;
-      scroll-snap-type:x mandatory;
+    .approvalHeader{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .approvalTitle{ font-weight: 750; font-size: 14px; letter-spacing: .2px; }
+    .badge{
+      font-size: 12px; font-weight: 750;
+      padding: 6px 10px; border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f9fafb; color: var(--muted);
+      white-space: nowrap;
     }
-    .slotsRow::-webkit-scrollbar{height:10px}
-    .slotsRow::-webkit-scrollbar-thumb{background:#d1d5db; border-radius:999px}
-    .slotCard{
-      scroll-snap-align:start;
-      border:1px solid var(--line);
-      border-radius:14px;
-      background:#fff;
-      box-shadow:0 4px 14px rgba(0,0,0,.04);
+    .badgeApproved{
+      border-color: rgba(0,0,0,.08);
+      background: rgba(16,185,129,.16);
+      color: #065f46;
+    }
+    .badgeConditional{
+      border-color: rgba(0,0,0,.08);
+      background: rgba(245,158,11,.18);
+      color: #92400e;
+    }
+    .badgeReview{
+      border-color: rgba(0,0,0,.08);
+      background: rgba(59,130,246,.16);
+      color: #1e40af;
+    }
+    .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
+    .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    /* Grand celebration */
+    .confetti{ position:absolute; inset:0; pointer-events:none; }
+    .confettiPiece{
+      position:absolute;
+      top:-16px;
+      border-radius: 2px;
+      opacity: 0;
+      transform: translateY(0) rotate(0deg);
+      animation: confettiFall 1600ms cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    .sparkle{
+      position:absolute;
+      top: 14px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      opacity: 0;
+      animation: sparklePop 1000ms ease-out forwards;
+      filter: blur(.2px);
+    }
+    @keyframes confettiFall{
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  12%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(420px) rotate(620deg); }
+}
+    @keyframes sparklePop{
+      0%   { opacity: 0; transform: scale(.6); }
+      20%  { opacity: 1; transform: scale(1.35); }
+      100% { opacity: 0; transform: scale(2.0); }
+    }
+
+    .iframeWrap{
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      min-width:180px;
-    }
-    .slotHead{padding:10px 12px; border-bottom:1px solid var(--line);}
-    .slotCheck{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--text);}
-    .slotCheck input{transform:translateY(1px)}
-    .imgBtn{border:0; background:transparent; padding:0; cursor:pointer;}
-    .slotCard img{display:block; width:100%; aspect-ratio: 1 / 1; object-fit:cover;}
-    /* Alignment panel */
-    .alignGrid{display:grid; grid-template-columns:1fr; gap:10px;}
-    @media (min-width: 720px){ .alignGrid{grid-template-columns: repeat(3, 1fr);} }
-    .metric{border:1px solid var(--line); border-radius:12px; padding:12px; background:#fff;}
-    .metric .k{color:var(--muted); font-size:12px; margin:0 0 6px;}
-    .metric .v{font-size:18px; font-weight:700; margin:0;}
-    .metric select{width:100%; border:1px solid var(--line); border-radius:10px; padding:10px; font-size:14px;}
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
-    .btn{
-      border:1px solid var(--line);
       background:#fff;
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:600;
-      font-size:13px;
     }
-    .btn:hover{background:#f3f4f6}
-    /* Lightbox */
-    .lightbox{
-      position:fixed; inset:0;
-      display:none;
-      background:rgba(17,24,39,.86);
-      align-items:center; justify-content:center;
-      padding:20px;
-      z-index:9999;
+    iframe{
+      width: 100%;
+      height: 980px;
+      border: 0;
+      display:block;
+      background:#fff;
     }
-    .lightbox.open{display:flex;}
-    .lightbox img{max-width:min(1100px, 95vw); max-height:90vh; border-radius:14px;}
-    .lbClose{
-      position:fixed; top:16px; right:16px;
-      background:rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.24);
-      color:#fff;
-      padding:10px 12px;
-      border-radius:999px;
-      cursor:pointer;
-      font-weight:700;
+
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 12px 14px; border-radius: 14px; text-decoration:none;
+      border: 1px solid var(--line);
+      color: var(--text); background: #fff; font-weight: 650;
     }
-    /* Form iframe */
-    .formFrame{width:100%; height:680px; border:0; border-radius:12px;}
-    .mutedSmall{color:var(--muted); font-size:12px; margin:10px 0 0;}
-  </style>
+    .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
+  
+    /* === Layout refresh (keep palette + typography, change formatting) === */
+    .grid{ display:block; }
+    details.detailsCard{ border:1px solid var(--line); border-radius:16px; background:var(--panel); box-shadow: var(--shadow); margin-top:16px; overflow:hidden; }
+    details.detailsCard > summary{ list-style:none; cursor:pointer; padding:16px 18px; display:flex; align-items:center; gap:10px; }
+    details.detailsCard > summary::-webkit-details-marker{ display:none; }
+    .sumTitle{ font-size:18px; font-weight:750; margin:0; }
+    .sumHint{ margin-left:auto; color:var(--muted); font-size:13px; }
+    .detailsInner{ padding:0 18px 18px 18px; }
+    .detailsInner .sectionTitle{ margin-top:12px; }
+    .slotStrip{ display:flex; gap:14px; overflow-x:auto; padding:6px 2px 10px; scroll-snap-type:x mandatory; }
+    .slotStrip::-webkit-scrollbar{ height:10px; }
+    .slotStrip::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.18); border-radius:10px; }
+    .slotCard{ min-width:220px; max-width:220px; border:1px solid var(--line); border-radius:14px; background:#fff; padding:10px; scroll-snap-align:start; }
+    .imgBtn{ padding:0; border:0; background:none; width:100%; cursor:pointer; }
+    .slotCard img{ width:100%; height:180px; object-fit:cover; border-radius:10px; display:block; }
+    .checkRow{ display:flex; align-items:center; gap:8px; margin-top:10px; font-size:14px; }
+    .slotText{ margin-top:10px; }
+    .slotText .meta{ color:var(--muted); font-size:12.5px; line-height:1.45; }
+    .alignmentAuto{ margin-top:10px; }
+    .lightbox{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.82); z-index:999; padding:24px; }
+    .lightbox img{ max-width:min(100%, 1100px); max-height:90vh; border-radius:14px; }
+    
+</style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
-      <h1>Eastern Ink — Curatorial Review</h1>
-      <p class="sub">A lightweight feedback sheet: open the sections you need, check matched slots, and the alignment score updates automatically.</p>
+      <h1>Curatorial Review Submission</h1>
+      <p class="sub">Eastern Ink: Asian Traditions Across Time
+
+Thank you for your curatorial contribution to this installation.
+The gallery has been completed under defined material, temporal, and geographic constraints.
+
+This form records alignment with the original curatorial framework and identifies areas of interpretive divergence.
+
+Proceed with the review below.</p>
+
+      <div class="pillrow">
+        <div class="pill">Estimated time: 2–4 minutes</div>
+        <div class="pill">Responses are recorded for review</div>
+        <div class="pill">Optional identifying info</div>
+      </div>
     </header>
 
-    <div class="stack">
-
-      <section class="panel pad">
-        <div class="rowTitle">
-          <h2>Curatorial Review</h2>
-          <p class="hint">Notes are saved in this browser.</p>
-        </div>
-        <textarea id="notes" class="notesArea" placeholder="Write curatorial feedback here…"></textarea>
-        <div class="notesMeta">
-          <span id="saveState">Not saved yet</span>
-          <span id="charCount">0 chars</span>
-        </div>
-      </section>
-
-      <details class="panel" id="constraintsBox">
-        <summary>Gallery context and constraints</summary>
-        <div class="detailsBody">
-          <ul><li>At least 4 types of medium</li><li>At least 4 centuries represented</li><li>At least 5 distinct locations/countries</li><li>No AI artworks</li></ul>
-        </div>
-      </details>
-
-      <details class="panel" id="placedBox">
-        <summary>Already placed artworks</summary>
-        <div class="detailsBody">
-          <p class="mutedSmall">Optional: paste a short list, or link to your plan. (This stays collapsible to keep the page clean.)</p>
-          <div id="placedList" contenteditable="true" style="border:1px solid var(--line); border-radius:12px; padding:12px; min-height:90px; background:#fff; font-size:14px; line-height:1.55;"></div>
-          <p class="mutedSmall">Tip: you can paste bullets here. This field is saved in this browser.</p>
-        </div>
-      </details>
-
-      <section class="panel pad">
-        <div class="rowTitle">
-          <h2>Expected artworks for empty slots</h2>
-          <p class="hint">Scroll horizontally if needed. Click an image to zoom.</p>
-        </div>
-        <div class="slotsRow" id="slotsRow">
-          <div class="slotCard">
-        <div class="slotHead">
-          <label class="slotCheck">
-            <input type="checkbox" class="slotCB" data-slot="1"> <span>Slot 1</span>
-          </label>
-        </div>
-        <button class="imgBtn" type="button" aria-label="Open image for slot 1">
-          <img src="assets/easternink/slot1.jpg" alt="Expected artwork for Slot 1" loading="lazy"
-               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%201</text></svg>';">
-        </button>
+    <details class="detailsCard" open>
+      <summary>
+        <div class="sumTitle">Curatorial review</div>
+        <div class="sumHint">Overview</div>
+      </summary>
+      <div class="detailsInner">
+        <p class="small" style="margin-top:0;">
+          Use the sections below to review context, confirm reference placements, and evaluate alignment for the empty slots.
+          Check “Matched” under each expected slot when your final placement corresponds to the reference plan.
+        </p>
       </div>
-<div class="slotCard">
-        <div class="slotHead">
-          <label class="slotCheck">
-            <input type="checkbox" class="slotCB" data-slot="2"> <span>Slot 2</span>
-          </label>
-        </div>
-        <button class="imgBtn" type="button" aria-label="Open image for slot 2">
-          <img src="assets/easternink/slot2.jpg" alt="Expected artwork for Slot 2" loading="lazy"
-               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%202</text></svg>';">
-        </button>
-      </div>
-<div class="slotCard">
-        <div class="slotHead">
-          <label class="slotCheck">
-            <input type="checkbox" class="slotCB" data-slot="3"> <span>Slot 3</span>
-          </label>
-        </div>
-        <button class="imgBtn" type="button" aria-label="Open image for slot 3">
-          <img src="assets/easternink/slot3.jpg" alt="Expected artwork for Slot 3" loading="lazy"
-               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%203</text></svg>';">
-        </button>
-      </div>
-<div class="slotCard">
-        <div class="slotHead">
-          <label class="slotCheck">
-            <input type="checkbox" class="slotCB" data-slot="4"> <span>Slot 4</span>
-          </label>
-        </div>
-        <button class="imgBtn" type="button" aria-label="Open image for slot 4">
-          <img src="assets/easternink/slot4.jpg" alt="Expected artwork for Slot 4" loading="lazy"
-               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%204</text></svg>';">
-        </button>
-      </div>
-<div class="slotCard">
-        <div class="slotHead">
-          <label class="slotCheck">
-            <input type="checkbox" class="slotCB" data-slot="5"> <span>Slot 5</span>
-          </label>
-        </div>
-        <button class="imgBtn" type="button" aria-label="Open image for slot 5">
-          <img src="assets/easternink/slot5.jpg" alt="Expected artwork for Slot 5" loading="lazy"
-               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%205</text></svg>';">
-        </button>
-      </div>
-        </div>
-      </section>
+    </details>
 
-      <section class="panel pad">
-        <div class="rowTitle">
-          <h2>Alignment</h2>
-          <p class="hint">Auto-calculated from checked slots.</p>
-        </div>
-        <div class="alignGrid">
-          <div class="metric">
-            <p class="k">Matched</p>
-            <p class="v"><span id="matched">0</span> / 5</p>
+    <details class="detailsCard">
+      <summary>
+        <div class="sumTitle">Gallery context and constraints</div>
+        <div class="sumHint">Open</div>
+      </summary>
+      <div class="detailsInner">
+        <div class="kvs">
+          <div class="kv">
+            <b>Room</b>
+            <span>Eastern Ink: Asian Traditions Across Time</span>
           </div>
-          <div class="metric">
-            <p class="k">Alignment</p>
-            <p class="v"><span id="alignment">0</span>%</p>
+          <div class="kv">
+            <b>Task</b>
+            <span>Complete 5 remaining slots while maintaining the exhibition constraints.</span>
           </div>
-          <div class="metric">
-            <p class="k">Approval status</p>
-            <select id="approval">
-              <option value="same">Same</option>
-              <option value="revise">Needs revision</option>
-              <option value="approve">Approved</option>
-            </select>
+        </div>
+
+        <div class="sectionTitle">Key constraints</div>
+        <div class="kvs">
+          <div class="kv"><b>Media diversity</b><span>Four distinct media or techniques represented</span></div>
+          <div class="kv"><b>Temporal scope</b><span>Works spanning at least four centuries</span></div>
+          <div class="kv"><b>Geographic breadth</b><span>At least five distinct countries or regions</span></div>
+          <div class="kv"><b>Provenance</b><span>All works human-made; no AI-generated imagery</span></div>
+        </div>
+
+        <div class="note">
+          <b>Review note:</b> The lists below reflect the curatorial team’s reference plan.
+          If your final selection aligns with it, that is acceptable.
+          If your selection differs, please document your interpretive rationale in the form.
+        </div>
+
+        <div class="sectionTitle">Reference plan for Eastern Ink</div>
+      </div>
+    </details>
+
+    <details class="detailsCard">
+      <summary>
+        <div class="sumTitle">Already placed artworks</div>
+        <div class="sumHint">Open</div>
+      </summary>
+      <div class="detailsInner">
+        <ol>
+<li><span class="workTitle">Minamoto no Yoritomo Fighting Enemies Bravely</span><span class="meta">Utagawa Kokunimasa (Japanese, 1874–1944) • 19th century • Woodblock print</span></li>
+<li><span class="workTitle">Calligraphy of a poem by Wang Wei</span><span class="meta">Jeanette Hsu (American, born China, 1929) • 1978 • Ink on paper, on silk mount</span></li>
+<li><span class="workTitle">Zōriuchi no ba</span><span class="meta">Utagawa Toyokuni III (Japanese, 1786–1865) • 1853 • Woodcut on paper</span></li>
+<li><span class="workTitle">Hour of Snake, Kept Woman (from the series Customs of Beauties Around the Clock )</span><span class="meta">Kitagawa Utamaro (Japanese, 1753–1806) • 19th century • Woodcut on paper</span></li>
+<li><span class="workTitle">Ōi (from the series The Sixty-nine Stations of the Kisokaidō Road )</span><span class="meta">Andō Hiroshige (Japanese, 1797–1858) • c. 1835 • Woodcut on paper</span></li>
+</ol>
+      </div>
+    </details>
+
+    <section class="card" style="margin-top:16px;">
+      <h2>Expected artworks for the empty slots</h2>
+      <p class="small" style="margin-top:0;">Click an image to view it larger. Check “Matched” if your final selection corresponds to the reference plan for that slot.</p>
+      <div class="slotStrip" id="slotStrip">
+        
+        <div class="slotCard">
+          <button class="imgBtn" type="button" aria-label="Open image for slot 1" data-src="assets/easternink/slot1.jpg">
+            <img src="assets/easternink/slot1.jpg" alt="Expected artwork for slot 1" loading="lazy">
+          </button>
+          <label class="checkRow">
+            <input type="checkbox" class="slotCheck" data-slot="1">
+            <span>Matched</span>
+          </label>
+          <div class="slotText">
+            <div class="workTitle">Slot 1 — Dandelion with Red Dragonfly (silver)</div>
+            <div class="meta">Hung Liu (Born in Changchun, China, 1948–2021) • 2020 • Mixed media</div>
           </div>
+        </div>
+        
+
+        <div class="slotCard">
+          <button class="imgBtn" type="button" aria-label="Open image for slot 2" data-src="assets/easternink/slot2.jpg">
+            <img src="assets/easternink/slot2.jpg" alt="Expected artwork for slot 2" loading="lazy">
+          </button>
+          <label class="checkRow">
+            <input type="checkbox" class="slotCheck" data-slot="2">
+            <span>Matched</span>
+          </label>
+          <div class="slotText">
+            <div class="workTitle">Slot 2 — Series: Ise Monogatari (Tales of Ise)</div>
+            <div class="meta">Masanobu (Japanese) • c. 1686–1764 • Woodcut on paper</div>
+          </div>
+        </div>
+        
+
+        <div class="slotCard">
+          <button class="imgBtn" type="button" aria-label="Open image for slot 3" data-src="assets/easternink/slot3.jpg">
+            <img src="assets/easternink/slot3.jpg" alt="Expected artwork for slot 3" loading="lazy">
+          </button>
+          <label class="checkRow">
+            <input type="checkbox" class="slotCheck" data-slot="3">
+            <span>Matched</span>
+          </label>
+          <div class="slotText">
+            <div class="workTitle">Slot 3 — Persian Miniature</div>
+            <div class="meta">Persian • 19th century • Gouache and graphite on paper</div>
+          </div>
+        </div>
+        
+
+        <div class="slotCard">
+          <button class="imgBtn" type="button" aria-label="Open image for slot 4" data-src="assets/easternink/slot4.jpg">
+            <img src="assets/easternink/slot4.jpg" alt="Expected artwork for slot 4" loading="lazy">
+          </button>
+          <label class="checkRow">
+            <input type="checkbox" class="slotCheck" data-slot="4">
+            <span>Matched</span>
+          </label>
+          <div class="slotText">
+            <div class="workTitle">Slot 4 — Tapa Cloth</div>
+            <div class="meta">Samoan • 19th century • Bark cloth with pigments</div>
+          </div>
+        </div>
+        
+
+        <div class="slotCard">
+          <button class="imgBtn" type="button" aria-label="Open image for slot 5" data-src="assets/easternink/slot5.jpg">
+            <img src="assets/easternink/slot5.jpg" alt="Expected artwork for slot 5" loading="lazy">
+          </button>
+          <label class="checkRow">
+            <input type="checkbox" class="slotCheck" data-slot="5">
+            <span>Matched</span>
+          </label>
+          <div class="slotText">
+            <div class="workTitle">Slot 5 — Untitled (Krishna seated on a throne, combing a woman’s hair)</div>
+            <div class="meta">Indian • 19th century • Gouache on paper</div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    
+      <section class="card">
+        <h2>Alignment</h2>
+        <p class="small" style="margin-top:0;">
+          Alignment indicates the degree of correspondence between your final selections and the reference plan.
+          Divergence is an accepted curatorial strategy when clearly articulated.
+        </p>
+
+        <div class="scoreBox alignmentAuto">
+          <div class="scoreRow">
+            <div><b>Matched:</b> <span id="matchedText">0 of 5</span></div>
+            <div><b>Alignment:</b> <span id="scoreText">0%</span></div>
+          </div>
+          <div class="hint">
+            The matched count is calculated from the checkmarks above. Enter the <b>matched number</b> (5 max) in the Google Form below.
+          </div>
+        </div>
+
+        <div id="approvalPanel" class="approvalPanel" aria-live="polite">
+          <div class="approvalHeader">
+            <div class="approvalTitle">Approval status</div>
+            <div id="approvalBadge" class="badge">Pending</div>
+          </div>
+          <div id="approvalMessage" class="approvalMessage">
+            Mark the matched slots to generate an approval status.
+          </div>
+          <div id="approvalNext" class="approvalNext"></div>
+          <div id="confetti" class="confetti" aria-hidden="true"></div>
+        </div>
+
+        <h2 style="margin-top:14px;">Submit for approval once completed</h2>
+        <p class="small">Your response is saved automatically. Please do not include any sensitive personal information.</p>
+
+        <div class="iframeWrap">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfqp_dECSmjEXXoB1YWotlgI1KE7RdrJ6EjvPS_H_7GcHY7xw/viewform?embedded=true"
+            title="Eastern Ink — Curatorial Feedback Form"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          >Loading…</iframe>
         </div>
 
         <div class="actions">
-          <button class="btn" type="button" id="resetBtn">Reset checks</button>
-          <button class="btn" type="button" id="openConstraints">Open constraints</button>
-          <button class="btn" type="button" id="openPlaced">Open already placed</button>
+          <a class="btn btnPrimary" href="https://framevr.io/curatorial-constraints-cmac-exhibition#entrance">
+            Return to Exhibition
+          </a>
         </div>
-        <p class="mutedSmall">If you’re using the Google Form below, you can copy the matched number directly.</p>
+
+        <p class="small" style="margin-top:10px;">If the embedded form does not load, open it in a new tab.</p>
       </section>
+    
 
-      <details class="panel" id="formBox" open>
-        <summary>Feedback form</summary>
-        <div class="detailsBody">
-          <p class='mutedSmall'>Paste your Google Form embed link into the code where indicated to show it here.</p>
-        </div>
-      </details>
-
-    </div>
   </div>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lbClose" id="lbClose" type="button">× Close</button>
-    <img id="lbImg" alt="Full view">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <img id="lightboxImg" alt="Preview">
   </div>
+
 
 <script>
-(() => {
-  const STORAGE_KEY = "cmac_curatorial_eastern_ink";
-  const notes = document.getElementById("notes");
-  const placed = document.getElementById("placedList");
-  const approval = document.getElementById("approval");
-  const saveState = document.getElementById("saveState");
-  const charCount = document.getElementById("charCount");
+(function(){
+  const TOTAL_SLOTS = 5;
+  const STORAGE_KEY = 'index-cmac-review-v2';
 
-  const cbs = Array.from(document.querySelectorAll(".slotCB"));
-  const matchedEl = document.getElementById("matched");
-  const alignmentEl = document.getElementById("alignment");
+  const qs = (s,el=document)=>el.querySelector(s);
+  const qsa = (s,el=document)=>Array.from(el.querySelectorAll(s));
 
-  const lightbox = document.getElementById("lightbox");
-  const lbImg = document.getElementById("lbImg");
-  const lbClose = document.getElementById("lbClose");
+  const matchedText = qs('#matchedText');
+  const scoreText = qs('#scoreText');
+  const badge = qs('#approvalBadge');
+  const msg = qs('#approvalMessage');
+  const next = qs('#approvalNext');
+  const confetti = qs('#confetti');
 
-  function compute() {
-    const checked = cbs.filter(cb => cb.checked).length;
-    matchedEl.textContent = checked;
-    alignmentEl.textContent = Math.round((checked / cbs.length) * 100);
+  const lightbox = qs('#lightbox');
+  const lightboxImg = qs('#lightboxImg');
+
+  function setBadge(text, className){
+    badge.className = 'badge ' + (className || '');
+    badge.textContent = text;
   }
 
-  function markSaved() {
-    saveState.textContent = "Saved";
-    saveState.style.color = "var(--muted)";
-  }
-  function markDirty() {
-    saveState.textContent = "Saving…";
-    saveState.style.color = "var(--muted)";
-  }
-
-  function save() {
-    const data = {
-      notes: notes.value,
-      placed: placed.innerHTML,
-      approval: approval.value,
-      checks: cbs.map(cb => cb.checked)
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    markSaved();
+  function clearConfetti(){ confetti.innerHTML = ''; }
+  function fireConfetti(n=24){
+    clearConfetti();
+    for(let i=0;i<n;i++) {
+      const s=document.createElement('span');
+      s.className='c';
+      s.style.left = Math.random()*100 + '%';
+      s.style.animationDelay = (Math.random()*0.6) + 's';
+      confetti.appendChild(s);
+    }
   }
 
-  function load() {
+  function readState(){
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      if (typeof data.notes === "string") notes.value = data.notes;
-      if (typeof data.placed === "string") placed.innerHTML = data.placed;
-      if (typeof data.approval === "string") approval.value = data.approval;
-      if (Array.isArray(data.checks)) {
-        data.checks.forEach((v, idx) => { if (cbs[idx]) cbs[idx].checked = !!v; });
-      }
-    } catch(e) {}
-    compute();
-    charCount.textContent = (notes.value || "").length + " chars";
-    saveState.textContent = "Loaded";
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch(e) { return {}; }
   }
 
-  // Lightbox wiring
-  document.querySelectorAll(".imgBtn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const img = btn.querySelector("img");
-      lbImg.src = img.currentSrc || img.src;
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden","false");
+  function writeState(state){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function compute(){
+    const checks = qsa('.slotCheck');
+    const matched = checks.filter(c=>c.checked).length;
+    const pct = Math.round((matched / TOTAL_SLOTS) * 100);
+    matchedText.textContent = matched + ' of ' + TOTAL_SLOTS;
+    scoreText.textContent = pct + '%';
+
+    // Approval logic: simple + readable
+    if(matched === 0){
+      setBadge('Pending', 'bPending');
+      msg.textContent = 'Mark the matched slots to generate an approval status.';
+      next.textContent = '';
+      clearConfetti();
+    } else if(matched < TOTAL_SLOTS){
+      setBadge('Review', 'bReview');
+      msg.textContent = 'Partial match recorded. Divergence is acceptable when articulated in the form.';
+      next.innerHTML = '<span class="dot"></span> Enter “' + matched + '” as the matched number in the Google Form.';
+      clearConfetti();
+    } else {
+      setBadge('Approved', 'bApproved');
+      msg.textContent = 'Full alignment recorded.';
+      next.innerHTML = '<span class="dot"></span> Enter “' + matched + '” as the matched number in the Google Form.';
+      fireConfetti(30);
+    }
+
+    // persist
+    const state = readState();
+    state.checked = checks.map(c=>c.checked);
+    writeState(state);
+  }
+
+  // restore
+  const state = readState();
+  const checks = qsa('.slotCheck');
+  if(state.checked && Array.isArray(state.checked)) {
+    checks.forEach((c,i)=>c.checked = !!state.checked[i]);
+  }
+
+  // listeners
+  checks.forEach(c=>c.addEventListener('change', compute));
+
+  // lightbox
+  qsa('.imgBtn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const src = btn.getAttribute('data-src');
+      lightboxImg.src = src;
+      lightbox.style.display='flex';
     });
   });
+  lightbox.addEventListener('click', ()=>{ lightbox.style.display='none'; });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') lightbox.style.display='none'; });
 
-  function closeLb() {
-    lightbox.classList.remove("open");
-    lightbox.setAttribute("aria-hidden","true");
-    lbImg.src = "";
-  }
-  lbClose.addEventListener("click", closeLb);
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) closeLb();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeLb();
-  });
-
-  // Update + save handlers (debounced)
-  let t = null;
-  function scheduleSave() {
-    markDirty();
-    clearTimeout(t);
-    t = setTimeout(save, 300);
-  }
-
-  cbs.forEach(cb => cb.addEventListener("change", () => {
-    compute();
-    scheduleSave();
-  }));
-  approval.addEventListener("change", scheduleSave);
-
-  notes.addEventListener("input", () => {
-    charCount.textContent = (notes.value || "").length + " chars";
-    scheduleSave();
-  });
-  placed.addEventListener("input", scheduleSave);
-
-  document.getElementById("resetBtn").addEventListener("click", () => {
-    cbs.forEach(cb => cb.checked = false);
-    compute();
-    scheduleSave();
-  });
-  document.getElementById("openConstraints").addEventListener("click", () => {
-    document.getElementById("constraintsBox").open = true;
-    document.getElementById("constraintsBox").scrollIntoView({behavior:"smooth", block:"start"});
-  });
-  document.getElementById("openPlaced").addEventListener("click", () => {
-    document.getElementById("placedBox").open = true;
-    document.getElementById("placedBox").scrollIntoView({behavior:"smooth", block:"start"});
-  });
-
-  load();
+  compute();
 })();
 </script>
 </body>
