@@ -6,272 +6,405 @@
   <title>Eastern Ink — Curatorial Review</title>
   <style>
     :root{
-      --bg:#f7f7f8;
+      --bg:#f6f7f8;
       --panel:#ffffff;
-      --text:#111;
-      --muted:#555;
-      --line:#e7e7ea;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --shadow:0 8px 24px rgba(0,0,0,.06);
+      --radius:14px;
+      --max:1050px;
     }
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:var(--bg);
+      color:var(--text);
     }
-    .wrap{
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 34px 18px 60px;
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 56px;}
+    header{margin-bottom:14px;}
+    h1{font-size:24px; font-weight:600; margin:0 0 6px; letter-spacing:.2px;}
+    .sub{color:var(--muted); font-size:13px; line-height:1.45; margin:0;}
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
-    h1{
-      font-weight: 450;
-      font-size: 28px;
-      margin: 0 0 8px;
-      letter-spacing: .2px;
-    }
-    .sub{
-      margin:0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    details{
-      margin-top: 22px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px 14px;
-    }
-    summary{
+    .pad{padding:16px 16px;}
+    .stack{display:flex; flex-direction:column; gap:14px;}
+    /* Collapsible boxes */
+    details.panel{overflow:hidden}
+    details > summary{
+      list-style:none;
       cursor:pointer;
-      font-weight: 600;
-      font-size: 14px;
-      color: #222;
-      list-style: none;
+      padding:14px 16px;
+      font-weight:600;
+      border-bottom:1px solid var(--line);
+      user-select:none;
     }
-    summary::-webkit-details-marker{ display:none; }
-    .constraints{
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
+    details > summary::-webkit-details-marker{display:none}
+    details[open] > summary{border-bottom:1px solid var(--line);}
+    .detailsBody{padding:14px 16px; color:var(--text);}
+    .detailsBody p, .detailsBody li{color:var(--text); font-size:14px; line-height:1.55}
+    .detailsBody ul{margin:8px 0 0 18px}
+    /* Curatorial review notes */
+    .notesArea{
+      width:100%;
+      min-height:110px;
+      resize:vertical;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px 12px;
+      font-size:14px;
+      line-height:1.5;
+      outline:none;
+      background:#fff;
     }
-
-    .section{
-      margin-top: 34px;
+    .notesMeta{display:flex; justify-content:space-between; gap:10px; margin-top:8px; color:var(--muted); font-size:12px;}
+    /* Expected artworks row */
+    .rowTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:12px;}
+    .rowTitle h2{font-size:16px; margin:0; font-weight:650;}
+    .hint{font-size:12px; color:var(--muted); margin:0;}
+    .slotsRow{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:minmax(180px, 1fr);
+      gap:14px;
+      overflow-x:auto;
+      padding:12px 2px 2px;
+      scroll-snap-type:x mandatory;
     }
-    .section h2{
-      font-weight: 450;
-      font-size: 18px;
-      margin: 0 0 14px;
-    }
-
-    /* SINGLE COLUMN: stacked cards */
-    .stack{
+    .slotsRow::-webkit-scrollbar{height:10px}
+    .slotsRow::-webkit-scrollbar-thumb{background:#d1d5db; border-radius:999px}
+    .slotCard{
+      scroll-snap-align:start;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 4px 14px rgba(0,0,0,.04);
+      overflow:hidden;
       display:flex;
-      flex-direction: column;
-      gap: 26px;
+      flex-direction:column;
+      min-width:180px;
     }
-
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px 14px 16px;
+    .slotHead{padding:10px 12px; border-bottom:1px solid var(--line);}
+    .slotCheck{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--text);}
+    .slotCheck input{transform:translateY(1px)}
+    .imgBtn{border:0; background:transparent; padding:0; cursor:pointer;}
+    .slotCard img{display:block; width:100%; aspect-ratio: 1 / 1; object-fit:cover;}
+    /* Alignment panel */
+    .alignGrid{display:grid; grid-template-columns:1fr; gap:10px;}
+    @media (min-width: 720px){ .alignGrid{grid-template-columns: repeat(3, 1fr);} }
+    .metric{border:1px solid var(--line); border-radius:12px; padding:12px; background:#fff;}
+    .metric .k{color:var(--muted); font-size:12px; margin:0 0 6px;}
+    .metric .v{font-size:18px; font-weight:700; margin:0;}
+    .metric select{width:100%; border:1px solid var(--line); border-radius:10px; padding:10px; font-size:14px;}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
+    .btn{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:13px;
     }
-
-    .imgWrap{
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: #fafafa;
-    }
-    .imgWrap img{
-      width: 100%;
-      max-height: 520px;
-      object-fit: cover;
-      display:block;
-      cursor: zoom-in;
-    }
-
-    .row{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 12px;
-    }
-    .slot{
-      font-size: 13px;
-      color: var(--muted);
-    }
-    label{
-      font-size: 14px;
-      user-select: none;
-    }
-    input[type="checkbox"]{
-      transform: translateY(1px);
-    }
-
-    .score{
-      margin-top: 34px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .score strong{ font-weight: 650; }
-    .score .muted{ color: var(--muted); font-size: 14px; }
-    button{
-      padding: 8px 14px;
-      border-radius: 12px;
-      border: 1px solid #111;
-      background: #fff;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    button:hover{ background:#111; color:#fff; }
-
+    .btn:hover{background:#f3f4f6}
     /* Lightbox */
-    #lightbox{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.86);
+    .lightbox{
+      position:fixed; inset:0;
       display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 9999;
+      background:rgba(17,24,39,.86);
+      align-items:center; justify-content:center;
+      padding:20px;
+      z-index:9999;
     }
-    #lightbox img{
-      max-width: 96vw;
-      max-height: 92vh;
-      border-radius: 12px;
+    .lightbox.open{display:flex;}
+    .lightbox img{max-width:min(1100px, 95vw); max-height:90vh; border-radius:14px;}
+    .lbClose{
+      position:fixed; top:16px; right:16px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.24);
+      color:#fff;
+      padding:10px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
     }
+    /* Form iframe */
+    .formFrame{width:100%; height:680px; border:0; border-radius:12px;}
+    .mutedSmall{color:var(--muted); font-size:12px; margin:10px 0 0;}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Eastern Ink — Curatorial Review</h1>
-    <p class="sub">Check the artworks that match the expected placements. The alignment score updates automatically.</p>
+    <header>
+      <h1>Eastern Ink — Curatorial Review</h1>
+      <p class="sub">A lightweight feedback sheet: open the sections you need, check matched slots, and the alignment score updates automatically.</p>
+    </header>
 
-    <details>
-      <summary>Gallery Constraints</summary>
-      <div class="constraints">
-        • At least 4 types of medium<br/>
-        • At least 4 centuries represented<br/>
-        • At least 5 distinct countries/regions<br/>
-        • No AI artworks
+    <div class="stack">
+
+      <section class="panel pad">
+        <div class="rowTitle">
+          <h2>Curatorial Review</h2>
+          <p class="hint">Notes are saved in this browser.</p>
+        </div>
+        <textarea id="notes" class="notesArea" placeholder="Write curatorial feedback here…"></textarea>
+        <div class="notesMeta">
+          <span id="saveState">Not saved yet</span>
+          <span id="charCount">0 chars</span>
+        </div>
+      </section>
+
+      <details class="panel" id="constraintsBox">
+        <summary>Gallery context and constraints</summary>
+        <div class="detailsBody">
+          <ul><li>At least 4 types of medium</li><li>At least 4 centuries represented</li><li>At least 5 distinct locations/countries</li><li>No AI artworks</li></ul>
+        </div>
+      </details>
+
+      <details class="panel" id="placedBox">
+        <summary>Already placed artworks</summary>
+        <div class="detailsBody">
+          <p class="mutedSmall">Optional: paste a short list, or link to your plan. (This stays collapsible to keep the page clean.)</p>
+          <div id="placedList" contenteditable="true" style="border:1px solid var(--line); border-radius:12px; padding:12px; min-height:90px; background:#fff; font-size:14px; line-height:1.55;"></div>
+          <p class="mutedSmall">Tip: you can paste bullets here. This field is saved in this browser.</p>
+        </div>
+      </details>
+
+      <section class="panel pad">
+        <div class="rowTitle">
+          <h2>Expected artworks for empty slots</h2>
+          <p class="hint">Scroll horizontally if needed. Click an image to zoom.</p>
+        </div>
+        <div class="slotsRow" id="slotsRow">
+          <div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="1"> <span>Slot 1</span>
+          </label>
+        </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 1">
+          <img src="assets/easternink/slot1.jpg" alt="Expected artwork for Slot 1" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%201</text></svg>';">
+        </button>
       </div>
-    </details>
-
-    <div class="section">
-      <h2>Expected Artworks</h2>
-
-      <div class="stack" id="stack">
-        <!-- SLOT 1 -->
-        <div class="card">
-          <div class="imgWrap">
-            <img src="assets/easternink/slot1.jpg" alt="Expected artwork for slot 1" onclick="openLightbox(this.src)" />
-          </div>
-          <div class="row">
-            <div class="slot">Slot 1</div>
-            <label><input type="checkbox" class="match" onchange="updateScore()" /> Matched</label>
-          </div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="2"> <span>Slot 2</span>
+          </label>
         </div>
-
-        <!-- SLOT 2 -->
-        <div class="card">
-          <div class="imgWrap">
-            <img src="assets/easternink/slot2.jpg" alt="Expected artwork for slot 2" onclick="openLightbox(this.src)" />
-          </div>
-          <div class="row">
-            <div class="slot">Slot 2</div>
-            <label><input type="checkbox" class="match" onchange="updateScore()" /> Matched</label>
-          </div>
-        </div>
-
-        <!-- SLOT 3 -->
-        <div class="card">
-          <div class="imgWrap">
-            <img src="assets/easternink/slot3.jpg" alt="Expected artwork for slot 3" onclick="openLightbox(this.src)" />
-          </div>
-          <div class="row">
-            <div class="slot">Slot 3</div>
-            <label><input type="checkbox" class="match" onchange="updateScore()" /> Matched</label>
-          </div>
-        </div>
-
-        <!-- SLOT 4 -->
-        <div class="card">
-          <div class="imgWrap">
-            <img src="assets/easternink/slot4.jpg" alt="Expected artwork for slot 4" onclick="openLightbox(this.src)" />
-          </div>
-          <div class="row">
-            <div class="slot">Slot 4</div>
-            <label><input type="checkbox" class="match" onchange="updateScore()" /> Matched</label>
-          </div>
-        </div>
-
-        <!-- SLOT 5 -->
-        <div class="card">
-          <div class="imgWrap">
-            <img src="assets/easternink/slot5.jpg" alt="Expected artwork for slot 5" onclick="openLightbox(this.src)" />
-          </div>
-          <div class="row">
-            <div class="slot">Slot 5</div>
-            <label><input type="checkbox" class="match" onchange="updateScore()" /> Matched</label>
-          </div>
-        </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 2">
+          <img src="assets/easternink/slot2.jpg" alt="Expected artwork for Slot 2" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%202</text></svg>';">
+        </button>
       </div>
-
-      <div class="score">
-        <div>
-          <div><strong>Matched:</strong> <span id="count">0</span> / <span id="total">5</span></div>
-          <div class="muted">Alignment: <span id="percent">0%</span></div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="3"> <span>Slot 3</span>
+          </label>
         </div>
-        <button onclick="resetChecks()">Reset</button>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 3">
+          <img src="assets/easternink/slot3.jpg" alt="Expected artwork for Slot 3" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%203</text></svg>';">
+        </button>
       </div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="4"> <span>Slot 4</span>
+          </label>
+        </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 4">
+          <img src="assets/easternink/slot4.jpg" alt="Expected artwork for Slot 4" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%204</text></svg>';">
+        </button>
+      </div>
+<div class="slotCard">
+        <div class="slotHead">
+          <label class="slotCheck">
+            <input type="checkbox" class="slotCB" data-slot="5"> <span>Slot 5</span>
+          </label>
+        </div>
+        <button class="imgBtn" type="button" aria-label="Open image for slot 5">
+          <img src="assets/easternink/slot5.jpg" alt="Expected artwork for Slot 5" loading="lazy"
+               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='600'><rect%20width='100%'%20height='100%'%20fill='%23f3f4f6'/><text%20x='50%'%20y='50%'%20dominant-baseline='middle'%20text-anchor='middle'%20font-family='Arial'%20font-size='34'%20fill='%236b7280'>Slot%205</text></svg>';">
+        </button>
+      </div>
+        </div>
+      </section>
+
+      <section class="panel pad">
+        <div class="rowTitle">
+          <h2>Alignment</h2>
+          <p class="hint">Auto-calculated from checked slots.</p>
+        </div>
+        <div class="alignGrid">
+          <div class="metric">
+            <p class="k">Matched</p>
+            <p class="v"><span id="matched">0</span> / 5</p>
+          </div>
+          <div class="metric">
+            <p class="k">Alignment</p>
+            <p class="v"><span id="alignment">0</span>%</p>
+          </div>
+          <div class="metric">
+            <p class="k">Approval status</p>
+            <select id="approval">
+              <option value="same">Same</option>
+              <option value="revise">Needs revision</option>
+              <option value="approve">Approved</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" type="button" id="resetBtn">Reset checks</button>
+          <button class="btn" type="button" id="openConstraints">Open constraints</button>
+          <button class="btn" type="button" id="openPlaced">Open already placed</button>
+        </div>
+        <p class="mutedSmall">If you’re using the Google Form below, you can copy the matched number directly.</p>
+      </section>
+
+      <details class="panel" id="formBox" open>
+        <summary>Feedback form</summary>
+        <div class="detailsBody">
+          <p class='mutedSmall'>Paste your Google Form embed link into the code where indicated to show it here.</p>
+        </div>
+      </details>
+
     </div>
   </div>
 
-  <!-- Lightbox -->
-  <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightboxImg" alt="Full view" />
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lbClose" id="lbClose" type="button">× Close</button>
+    <img id="lbImg" alt="Full view">
   </div>
 
-  <script>
-    function updateScore(){
-      const boxes = document.querySelectorAll('.match');
-      const total = boxes.length;
-      const checked = document.querySelectorAll('.match:checked').length;
-      document.getElementById('count').textContent = checked;
-      document.getElementById('total').textContent = total;
-      document.getElementById('percent').textContent = Math.round((checked/total)*100) + '%';
-    }
+<script>
+(() => {
+  const STORAGE_KEY = "cmac_curatorial_eastern_ink";
+  const notes = document.getElementById("notes");
+  const placed = document.getElementById("placedList");
+  const approval = document.getElementById("approval");
+  const saveState = document.getElementById("saveState");
+  const charCount = document.getElementById("charCount");
 
-    function resetChecks(){
-      document.querySelectorAll('.match').forEach(b => b.checked = false);
-      updateScore();
-    }
+  const cbs = Array.from(document.querySelectorAll(".slotCB"));
+  const matchedEl = document.getElementById("matched");
+  const alignmentEl = document.getElementById("alignment");
 
-    function openLightbox(src){
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightbox').style.display = 'flex';
-    }
+  const lightbox = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg");
+  const lbClose = document.getElementById("lbClose");
 
-    function closeLightbox(){
-      document.getElementById('lightbox').style.display = 'none';
-    }
+  function compute() {
+    const checked = cbs.filter(cb => cb.checked).length;
+    matchedEl.textContent = checked;
+    alignmentEl.textContent = Math.round((checked / cbs.length) * 100);
+  }
 
-    updateScore();
-  </script>
+  function markSaved() {
+    saveState.textContent = "Saved";
+    saveState.style.color = "var(--muted)";
+  }
+  function markDirty() {
+    saveState.textContent = "Saving…";
+    saveState.style.color = "var(--muted)";
+  }
+
+  function save() {
+    const data = {
+      notes: notes.value,
+      placed: placed.innerHTML,
+      approval: approval.value,
+      checks: cbs.map(cb => cb.checked)
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    markSaved();
+  }
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (typeof data.notes === "string") notes.value = data.notes;
+      if (typeof data.placed === "string") placed.innerHTML = data.placed;
+      if (typeof data.approval === "string") approval.value = data.approval;
+      if (Array.isArray(data.checks)) {
+        data.checks.forEach((v, idx) => { if (cbs[idx]) cbs[idx].checked = !!v; });
+      }
+    } catch(e) {}
+    compute();
+    charCount.textContent = (notes.value || "").length + " chars";
+    saveState.textContent = "Loaded";
+  }
+
+  // Lightbox wiring
+  document.querySelectorAll(".imgBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const img = btn.querySelector("img");
+      lbImg.src = img.currentSrc || img.src;
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden","false");
+    });
+  });
+
+  function closeLb() {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden","true");
+    lbImg.src = "";
+  }
+  lbClose.addEventListener("click", closeLb);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLb();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLb();
+  });
+
+  // Update + save handlers (debounced)
+  let t = null;
+  function scheduleSave() {
+    markDirty();
+    clearTimeout(t);
+    t = setTimeout(save, 300);
+  }
+
+  cbs.forEach(cb => cb.addEventListener("change", () => {
+    compute();
+    scheduleSave();
+  }));
+  approval.addEventListener("change", scheduleSave);
+
+  notes.addEventListener("input", () => {
+    charCount.textContent = (notes.value || "").length + " chars";
+    scheduleSave();
+  });
+  placed.addEventListener("input", scheduleSave);
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    cbs.forEach(cb => cb.checked = false);
+    compute();
+    scheduleSave();
+  });
+  document.getElementById("openConstraints").addEventListener("click", () => {
+    document.getElementById("constraintsBox").open = true;
+    document.getElementById("constraintsBox").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  document.getElementById("openPlaced").addEventListener("click", () => {
+    document.getElementById("placedBox").open = true;
+    document.getElementById("placedBox").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  load();
+})();
+</script>
 </body>
 </html>
