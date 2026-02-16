@@ -56,10 +56,8 @@
       color: var(--muted); font-size: 13px;
     }
 
-    .grid{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
-    @media (min-width: 980px){ .grid{ grid-template-columns: 1.05fr .95fr; align-items:start; } }
-
-    .card{
+    .stack{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+.card{
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -100,6 +98,20 @@
     .slots{ margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
 
     .small{ color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; }
+
+    .textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background:#fff;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.45;
+      resize: vertical;
+      box-shadow: 0 8px 18px rgba(0,0,0,.04);
+    }
+    .textarea:focus{ outline: 3px solid rgba(0,0,0,.06); border-color: rgba(0,0,0,.12); }
 
     .select{
       padding:8px 10px; border-radius:10px; border:1px solid var(--line);
@@ -155,14 +167,16 @@
     .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
     /* Grand celebration */
-    .confetti{ position:absolute; inset:0; pointer-events:none; }
+    /* Confetti now covers the entire page */
+    .confetti{ position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
     .confettiPiece{
       position:absolute;
       top:-16px;
       border-radius: 2px;
       opacity: 0;
       transform: translateY(0) rotate(0deg);
-      animation: confettiFall 1600ms cubic-bezier(.2,.9,.2,1) forwards;
+      /* slower + longer fall */
+      animation: confettiFall 3200ms cubic-bezier(.2,.9,.2,1) forwards;
     }
     .sparkle{
       position:absolute;
@@ -175,10 +189,10 @@
       filter: blur(.2px);
     }
     @keyframes confettiFall{
-  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
-  12%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(420px) rotate(620deg); }
-}
+      0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+      12%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(110vh) rotate(740deg); }
+    }
     @keyframes sparklePop{
       0%   { opacity: 0; transform: scale(.6); }
       20%  { opacity: 1; transform: scale(1.35); }
@@ -208,30 +222,182 @@
       color: var(--text); background: #fff; font-weight: 650;
     }
     .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* --- Details dropdown: add a light directional arrow --- */
+    details > summary{
+      cursor: pointer;
+      list-style: none;
+      position: relative;
+      padding-right: 28px;
+    }
+    details > summary::-webkit-details-marker{ display:none; }
+    details > summary::after{
+      content: '▾';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%) rotate(0deg);
+      color: rgba(17,24,39,.55);
+      font-size: 14px;
+      line-height: 1;
+      transition: transform 160ms ease, color 160ms ease;
+    }
+    details[open] > summary::after{
+      transform: translateY(-50%) rotate(180deg);
+      color: rgba(17,24,39,.75);
+    }
   
-    /* === Layout refresh (keep palette + typography, change formatting) === */
-    .grid{ display:block; }
-    details.detailsCard{ border:1px solid var(--line); border-radius:16px; background:var(--panel); box-shadow: var(--shadow); margin-top:16px; overflow:hidden; }
-    details.detailsCard > summary{ list-style:none; cursor:pointer; padding:16px 18px; display:flex; align-items:center; gap:10px; }
-    details.detailsCard > summary::-webkit-details-marker{ display:none; }
-    .sumTitle{ font-size:18px; font-weight:750; margin:0; }
-    .sumHint{ margin-left:auto; color:var(--muted); font-size:13px; }
-    .detailsInner{ padding:0 18px 18px 18px; }
-    .detailsInner .sectionTitle{ margin-top:12px; }
-    .slotStrip{ display:flex; gap:14px; overflow-x:auto; padding:6px 2px 10px; scroll-snap-type:x mandatory; }
-    .slotStrip::-webkit-scrollbar{ height:10px; }
-    .slotStrip::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.18); border-radius:10px; }
-    .slotCard{ min-width:220px; max-width:220px; border:1px solid var(--line); border-radius:14px; background:#fff; padding:10px; scroll-snap-align:start; }
-    .imgBtn{ padding:0; border:0; background:none; width:100%; cursor:pointer; }
-    .slotCard img{ width:100%; height:180px; object-fit:cover; border-radius:10px; display:block; }
-    .checkRow{ display:flex; align-items:center; gap:8px; margin-top:10px; font-size:14px; }
-    .slotText{ margin-top:10px; }
-    .slotText .meta{ color:var(--muted); font-size:12.5px; line-height:1.45; }
-    .alignmentAuto{ margin-top:10px; }
-    .lightbox{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.82); z-index:999; padding:24px; }
-    .lightbox img{ max-width:min(100%, 1100px); max-height:90vh; border-radius:14px; }
-    
-</style>
+    /* --- Visual slot checker (less text, more visuals) --- */
+    .thumbGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 520px){ .thumbGrid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (min-width: 980px){ .thumbGrid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+    .thumb{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+      position:relative;
+    }
+    .thumbBtn{
+      display:block;
+      padding:0;
+      border:0;
+      background:transparent;
+      width:100%;
+      cursor:pointer;
+      text-align:left;
+    }
+    .thumbImg{
+      width:100%;
+      height: 150px;
+      object-fit: cover;
+      display:block;
+      background:#f3f4f6;
+    }
+    .thumbMeta{
+      padding: 10px 10px 12px;
+      border-top: 1px solid var(--line);
+    }
+    .thumbTitle{
+      font-weight: 750;
+      font-size: 13px;
+      line-height: 1.3;
+      margin:0;
+    }
+    .thumbSub{
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .checkWrap{
+      position:absolute;
+      top:10px;
+      left:10px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(6px);
+    }
+    .checkWrap input{ width: 18px; height: 18px; }
+    .checkWrap span{ font-size: 12px; font-weight: 750; color: var(--text); }
+
+    .controlsRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .btnSmall{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background:#fff;
+      color: var(--text);
+      font-weight: 650;
+      cursor:pointer;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      background: rgba(17,24,39,.66);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 9999;
+    }
+    .modal[open]{ display:flex; }
+    .modalPanel{
+      width:min(980px, 100%);
+      background:#fff;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    .modalBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fafafa;
+    }
+    .modalBar b{ font-size: 14px; }
+    .modalClose{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 700;
+    }
+    .modalImg{
+      width:100%;
+      height: min(74vh, 720px);
+      object-fit: contain;
+      display:block;
+      background:#111827;
+    }
+    .modalCaption{
+      padding: 12px 14px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    details{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #fafafa;
+      margin-top: 10px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 800;
+      color: var(--text);
+      list-style: none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+  </style>
 </head>
 
 <body>
@@ -254,26 +420,14 @@ Proceed with the review below.</p>
       </div>
     </header>
 
-    <details class="detailsCard" open>
-      <summary>
-        <div class="sumTitle">Curatorial review</div>
-        <div class="sumHint">Overview</div>
-      </summary>
-      <div class="detailsInner">
-        <p class="small" style="margin-top:0;">
-          Use the sections below to review context, confirm reference placements, and evaluate alignment for the empty slots.
-          Check “Matched” under each expected slot when your final placement corresponds to the reference plan.
-        </p>
-      </div>
-    </details>
+    <div class="stack">
+<!-- Left -->
+      <section class="card">
+        <details>
 
-    <details class="detailsCard">
-      <summary>
-        <div class="sumTitle">Gallery context and constraints</div>
-        <div class="sumHint">Open</div>
-      </summary>
-      <div class="detailsInner">
-        <div class="kvs">
+  <summary>Gallery context and constraints (tap to expand)</summary>
+
+<div class="kvs">
           <div class="kv">
             <b>Room</b>
             <span>Eastern Ink: Asian Traditions Across Time</span>
@@ -292,129 +446,168 @@ Proceed with the review below.</p>
           <div class="kv"><b>Provenance</b><span>All works human-made; no AI-generated imagery</span></div>
         </div>
 
-        <div class="note">
+</details>
+
+<div class="note">
           <b>Review note:</b> The lists below reflect the curatorial team’s reference plan.
           If your final selection aligns with it, that is acceptable.
           If your selection differs, please document your interpretive rationale in the form.
         </div>
 
-        <div class="sectionTitle">Reference plan for Eastern Ink</div>
-      </div>
-    </details>
+<div class="sectionTitle">Reference plan for Eastern Ink</div>
 
-    <details class="detailsCard">
-      <summary>
-        <div class="sumTitle">Already placed artworks</div>
-        <div class="sumHint">Open</div>
-      </summary>
-      <div class="detailsInner">
-        <ol>
-<li><span class="workTitle">Minamoto no Yoritomo Fighting Enemies Bravely</span><span class="meta">Utagawa Kokunimasa (Japanese, 1874–1944) • 19th century • Woodblock print</span></li>
-<li><span class="workTitle">Calligraphy of a poem by Wang Wei</span><span class="meta">Jeanette Hsu (American, born China, 1929) • 1978 • Ink on paper, on silk mount</span></li>
-<li><span class="workTitle">Zōriuchi no ba</span><span class="meta">Utagawa Toyokuni III (Japanese, 1786–1865) • 1853 • Woodcut on paper</span></li>
-<li><span class="workTitle">Hour of Snake, Kept Woman (from the series Customs of Beauties Around the Clock )</span><span class="meta">Kitagawa Utamaro (Japanese, 1753–1806) • 19th century • Woodcut on paper</span></li>
-<li><span class="workTitle">Ōi (from the series The Sixty-nine Stations of the Kisokaidō Road )</span><span class="meta">Andō Hiroshige (Japanese, 1797–1858) • c. 1835 • Woodcut on paper</span></li>
-</ol>
-      </div>
-    </details>
+        <details>
+          <summary>Already placed artworks (tap to expand)</summary>
+          <ol>
+          <li>
+            <span class="workTitle">Minamoto no Yoritomo Fighting Enemies Bravely</span>
+            <span class="meta">Utagawa Kokunimasa (Japanese, 1874–1944) • 19th century • Woodblock print</span>
+          </li>
+          <li>
+            <span class="workTitle">Calligraphy of a poem by Wang Wei</span>
+            <span class="meta">Jeanette Hsu (American, born China, 1929) • 1978 • Ink on paper, on silk mount</span>
+          </li>
+          <li>
+            <span class="workTitle">Zōriuchi no ba</span>
+            <span class="meta">Utagawa Toyokuni III (Japanese, 1786–1865) • 1853 • Woodcut on paper</span>
+          </li>
+          <li>
+            <span class="workTitle">Hour of Snake, Kept Woman (from the series <em>Customs of Beauties Around the Clock</em>)</span>
+            <span class="meta">Kitagawa Utamaro (Japanese, 1753–1806) • 19th century • Woodcut on paper</span>
+          </li>
+          <li>
+            <span class="workTitle">Ōi (from the series <em>The Sixty-nine Stations of the Kisokaidō Road</em>)</span>
+            <span class="meta">Andō Hiroshige (Japanese, 1797–1858) • c. 1835 • Woodcut on paper</span>
+          </li>
+        </ol>
+        </details>
 
-    <section class="card" style="margin-top:16px;">
-      <h2>Expected artworks for the empty slots</h2>
-      <p class="small" style="margin-top:0;">Click an image to view it larger. Check “Matched” if your final selection corresponds to the reference plan for that slot.</p>
-      <div class="slotStrip" id="slotStrip">
-        
-        <div class="slotCard">
-          <button class="imgBtn" type="button" aria-label="Open image for slot 1" data-src="assets/easternink/slot1.jpg">
-            <img src="assets/easternink/slot1.jpg" alt="Expected artwork for slot 1" loading="lazy">
-          </button>
-          <label class="checkRow">
-            <input type="checkbox" class="slotCheck" data-slot="1">
-            <span>Matched</span>
-          </label>
-          <div class="slotText">
-            <div class="workTitle">Slot 1 — Dandelion with Red Dragonfly (silver)</div>
-            <div class="meta">Hung Liu (Born in Changchun, China, 1948–2021) • 2020 • Mixed media</div>
-          </div>
+        <div class="slots">
+          <details><summary>Expected artworks for the empty slots (reference plan)</summary>
+            <ol>
+            <li>
+              <span class="workTitle">Slot 1 — Dandelion with Red Dragonfly (silver)</span>
+              <span class="meta">Hung Liu (Born in Changchun, China, 1948–2021) • 2020 • Mixed media</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 2 — Series: <em>Ise Monogatari</em> (Tales of Ise)</span>
+              <span class="meta">Masanobu (Japanese) • c. 1686–1764 • Woodcut on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 3 — Persian Miniature</span>
+              <span class="meta">Persian • 19th century • Gouache and graphite on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 4 — Tapa Cloth</span>
+              <span class="meta">Samoan • 19th century • Bark cloth with pigments</span>
+            </li>
+            <li>
+              <span class="workTitle">Slot 5 — Untitled (Krishna seated on a throne, combing a woman’s hair)</span>
+              <span class="meta">Indian • 19th century • Gouache on paper</span>
+            </li>
+          </ol>
+          </details>
         </div>
-        
 
-        <div class="slotCard">
-          <button class="imgBtn" type="button" aria-label="Open image for slot 2" data-src="assets/easternink/slot2.jpg">
-            <img src="assets/easternink/slot2.jpg" alt="Expected artwork for slot 2" loading="lazy">
-          </button>
-          <label class="checkRow">
-            <input type="checkbox" class="slotCheck" data-slot="2">
-            <span>Matched</span>
-          </label>
-          <div class="slotText">
-            <div class="workTitle">Slot 2 — Series: Ise Monogatari (Tales of Ise)</div>
-            <div class="meta">Masanobu (Japanese) • c. 1686–1764 • Woodcut on paper</div>
-          </div>
-        </div>
-        
 
-        <div class="slotCard">
-          <button class="imgBtn" type="button" aria-label="Open image for slot 3" data-src="assets/easternink/slot3.jpg">
-            <img src="assets/easternink/slot3.jpg" alt="Expected artwork for slot 3" loading="lazy">
-          </button>
-          <label class="checkRow">
-            <input type="checkbox" class="slotCheck" data-slot="3">
-            <span>Matched</span>
-          </label>
-          <div class="slotText">
-            <div class="workTitle">Slot 3 — Persian Miniature</div>
-            <div class="meta">Persian • 19th century • Gouache and graphite on paper</div>
-          </div>
-        </div>
-        
+</section>
 
-        <div class="slotCard">
-          <button class="imgBtn" type="button" aria-label="Open image for slot 4" data-src="assets/easternink/slot4.jpg">
-            <img src="assets/easternink/slot4.jpg" alt="Expected artwork for slot 4" loading="lazy">
-          </button>
-          <label class="checkRow">
-            <input type="checkbox" class="slotCheck" data-slot="4">
-            <span>Matched</span>
-          </label>
-          <div class="slotText">
-            <div class="workTitle">Slot 4 — Tapa Cloth</div>
-            <div class="meta">Samoan • 19th century • Bark cloth with pigments</div>
-          </div>
-        </div>
-        
-
-        <div class="slotCard">
-          <button class="imgBtn" type="button" aria-label="Open image for slot 5" data-src="assets/easternink/slot5.jpg">
-            <img src="assets/easternink/slot5.jpg" alt="Expected artwork for slot 5" loading="lazy">
-          </button>
-          <label class="checkRow">
-            <input type="checkbox" class="slotCheck" data-slot="5">
-            <span>Matched</span>
-          </label>
-          <div class="slotText">
-            <div class="workTitle">Slot 5 — Untitled (Krishna seated on a throne, combing a woman’s hair)</div>
-            <div class="meta">Indian • 19th century • Gouache on paper</div>
-          </div>
-        </div>
-        
-      </div>
-    </section>
-
-    
+      <!-- Right -->
+      
       <section class="card">
         <h2>Alignment</h2>
-        <p class="small" style="margin-top:0;">
-          Alignment indicates the degree of correspondence between your final selections and the reference plan.
-          Divergence is an accepted curatorial strategy when clearly articulated.
-        </p>
+        <p class="small" style="margin-top:0;">Check the artworks in the reference plan list that matched the choice you made in the gallery. The score updates automatically. <span class="muted">(You can tap an image to view it larger.)</span></p>
 
-        <div class="scoreBox alignmentAuto">
+        <div class="thumbGrid" id="thumbGrid">
+          
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="1">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/easternink/slot1.jpg" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/easternink/slot1.jpg" alt="Dandelion with Red Dragonfly (silver)">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 1 — Dandelion with Red Dragonfly (silver)</p>
+                <p class="thumbSub">Hung Liu • 2020 • Mixed media</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="2">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/easternink/slot2.jpg" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/easternink/slot2.jpg" alt="Series: Ise Monogatari (Tales of Ise)">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 2 — Series: Ise Monogatari (Tales of Ise)</p>
+                <p class="thumbSub">Masanobu • c. 1686–1764 • Woodcut on paper</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="3">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/easternink/slot3.jpg" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/easternink/slot3.jpg" alt="Persian Miniature">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 3 — Persian Miniature</p>
+                <p class="thumbSub">Persian • 19th century • Gouache and graphite on paper</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="4">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/easternink/slot4.jpg" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/easternink/slot4.jpg" alt="Tapa Cloth">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 4 — Tapa Cloth</p>
+                <p class="thumbSub">Samoan • 19th century • Bark cloth with pigments</p>
+              </div>
+            </button>
+          </div>
+        
+          <div class="thumb">
+            <label class="checkWrap">
+              <input type="checkbox" class="matchBox" data-slot="5">
+              <span>Matched</span>
+            </label>
+
+            <button class="thumbBtn" type="button" data-full="assets/easternink/slot5.jpg" data-caption="Reference plan image for Slot 5. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/easternink/slot5.jpg" alt="Untitled (Krishna seated on a throne, combing a woman’s hair)">
+              <div class="thumbMeta">
+                <p class="thumbTitle">Slot 5 — Untitled (Krishna seated on a throne, combing a woman’s hair)</p>
+                <p class="thumbSub">Indian • 19th century • Gouache on paper</p>
+              </div>
+            </button>
+          </div>
+        
+        </div>
+
+        <div class="controlsRow">
+          <button class="btnSmall" id="clearChecks" type="button">Clear checks</button>
+        </div>
+
+        <div class="scoreBox" style="margin-top:12px;">
           <div class="scoreRow">
-            <div><b>Matched:</b> <span id="matchedText">0 of 5</span></div>
+            <div><b>Matched:</b> <span id="matchedText">0 / 5</span></div>
             <div><b>Alignment:</b> <span id="scoreText">0%</span></div>
           </div>
           <div class="hint">
-            The matched count is calculated from the checkmarks above. Enter the <b>matched number</b> (5 max) in the Google Form below.
+            Enter the <b>matched number</b> (0–5) in the Google Form below. The percentage is shown for your reference.
           </div>
         </div>
 
@@ -424,13 +617,29 @@ Proceed with the review below.</p>
             <div id="approvalBadge" class="badge">Pending</div>
           </div>
           <div id="approvalMessage" class="approvalMessage">
-            Mark the matched slots to generate an approval status.
+            Check the matched artworks to generate an approval status.
           </div>
           <div id="approvalNext" class="approvalNext"></div>
-          <div id="confetti" class="confetti" aria-hidden="true"></div>
         </div>
 
-        <h2 style="margin-top:14px;">Submit for approval once completed</h2>
+        <!-- Confetti layer (full-page) -->
+        <div id="confetti" class="confetti" aria-hidden="true"></div>
+
+        <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Artwork preview">
+          <div class="modalPanel">
+            <div class="modalBar">
+              <b id="modalTitle">Artwork preview</b>
+              <button class="modalClose" type="button" id="modalClose">Close</button>
+            </div>
+            <img class="modalImg" id="modalImg" alt="Artwork preview">
+            <div class="modalCaption" id="modalCaption"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="card" id="submit">
+<h2 style="margin-top:14px;">Submit for approval once completed</h2>
         <p class="small">Your response is saved automatically. Please do not include any sensitive personal information.</p>
 
         <div class="iframeWrap">
@@ -448,116 +657,169 @@ Proceed with the review below.</p>
           </a>
         </div>
 
-        <p class="small" style="margin-top:10px;">If the embedded form does not load, open it in a new tab.</p>
+        <p class="small">
+          Tip for museum-floor use: after submitting the form, use <b>Return to Exhibition</b> to bring the next player back to the starting point.
+        </p>
       </section>
+    </div>
+  </div>
+
+ <script>
+
+    (function(){
+      const TOTAL_SLOTS = 5;
+
+      const matchedText = document.getElementById('matchedText');
+      const scoreText = document.getElementById('scoreText');
+
+      const badge = document.getElementById('approvalBadge');
+      const msg = document.getElementById('approvalMessage');
+      const next = document.getElementById('approvalNext');
+      const confetti = document.getElementById('confetti');
+
+      const boxes = Array.from(document.querySelectorAll('.matchBox'));
+      const clearBtn = document.getElementById('clearChecks');
+
+      const modal = document.getElementById('imgModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalCaption = document.getElementById('modalCaption');
+      const modalClose = document.getElementById('modalClose');
+      const modalTitle = document.getElementById('modalTitle');
+
+      const notes = document.getElementById('reviewNotes');
+      const copyBtn = document.getElementById('copyNotes');
+      const copyStatus = document.getElementById('copyStatus');
+
+      function setBadge(text, cls){
+        badge.className = 'badge ' + cls;
+        badge.textContent = text;
+      }
+
+      function clearConfetti(){ confetti.innerHTML = ''; }
+
+      function popConfetti(){
+        clearConfetti();
+
+        const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#111827';
+        const palette = [accent, '#111827', '#4b5563', '#9ca3af', '#f3f4f6', '#10b981', '#f59e0b'];
+
+        const pieces = 120;
+        for(let i=0;i<pieces;i++){ 
+          const p = document.createElement('div');
+          p.className = 'confettiPiece';
+          p.style.left = (Math.random()*100) + '%';
+
+          const w = 6 + Math.random()*10;
+          const h = 10 + Math.random()*18;
+          p.style.width = w + 'px';
+          p.style.height = h + 'px';
+
+          p.style.background = palette[Math.floor(Math.random()*palette.length)];
+          p.style.animationDelay = (Math.random()*900) + 'ms';
+          p.style.animationDuration = (2800 + Math.random()*1800) + 'ms';
+
+          confetti.appendChild(p);
+        }
+
+        const sparkles = 36;
+        for(let i=0;i<sparkles;i++){
+          const s = document.createElement('div');
+          s.className = 'sparkle';
+          s.style.left = (6 + Math.random()*88) + '%';
+          s.style.background = palette[Math.floor(Math.random()*palette.length)];
+          s.style.animationDelay = (Math.random()*900) + 'ms';
+          confetti.appendChild(s);
+        }
+      }
+
+      function updateApproval(score){
+        clearConfetti();
+
+        if(score === 100){
+          setBadge('Approved for Opening', 'badgeApproved');
+          msg.textContent = 'Work: Fantastic. Your installation aligns fully with the reference plan.';
+          next.textContent = 'No additional documentation is required. The gallery is cleared for opening.';
+          popConfetti();
+          return;
+        }
+
+        if(score >= 75){
+          setBadge('Provisional Approval — Brief Review', 'badgeConditional');
+          msg.textContent = 'Your installation demonstrates strong alignment with the reference framework, with selective curatorial variation.';
+          next.textContent = 'To finalize approval, please provide a brief summary (2–4 sentences) explaining your interpretive choices and how they satisfy the exhibition constraints.';
+          return;
+        }
+
+        setBadge('Approval Pathway — Extended Curatorial Review', 'badgeReview');
+        msg.textContent = 'Your installation reflects a distinct curatorial interpretation relative to the reference framework.';
+        next.textContent = 'To proceed toward approval, you may either re-curate selected works to strengthen structural alignment, or provide detailed and precise reasoning demonstrating how your curatorial strategy fulfills the thematic, material, and contextual objectives of the gallery. All curatorial approaches are valid when clearly articulated.';
+      }
+
+      function update(){
+        const matched = boxes.filter(b => b.checked).length;
+        const score = Math.round((matched / TOTAL_SLOTS) * 100);
+
+        matchedText.textContent = matched + ' / ' + TOTAL_SLOTS;
+        scoreText.textContent = score + '%';
+
+        updateApproval(score);
+      }
+
+      boxes.forEach(b => b.addEventListener('change', update));
+
+      
+      if(copyBtn && notes){
+        copyBtn.addEventListener('click', async () => {
+          try{
+            await navigator.clipboard.writeText(notes.value || '');
+            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
+          }catch(err){
+            // Fallback
+            notes.focus();
+            notes.select();
+            document.execCommand('copy');
+            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
+          }
+        });
+      }
+
+      clearBtn.addEventListener('click', () => {
+        boxes.forEach(b => b.checked = false);
+        update();
+      });
+
+      function openModal(src, caption, title){
+        modalImg.src = src;
+        modalCaption.textContent = caption || '';
+        modalTitle.textContent = title || 'Artwork preview';
+        modal.setAttribute('open', '');
+      }
+
+      function closeModal(){
+        modal.removeAttribute('open');
+        modalImg.src = '';
+      }
+
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.thumbBtn');
+        if(!btn) return;
+        const src = btn.getAttribute('data-full') || btn.querySelector('img')?.src;
+        const cap = btn.getAttribute('data-caption') || '';
+        const ttl = btn.querySelector('.thumbTitle')?.textContent || 'Artwork preview';
+        if(src) openModal(src, cap, ttl);
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && modal.hasAttribute('open')) closeModal();
+      });
+
+      update();
+    })();
     
-
-  </div>
-
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
-    <img id="lightboxImg" alt="Preview">
-  </div>
-
-
-<script>
-(function(){
-  const TOTAL_SLOTS = 5;
-  const STORAGE_KEY = 'index-cmac-review-v2';
-
-  const qs = (s,el=document)=>el.querySelector(s);
-  const qsa = (s,el=document)=>Array.from(el.querySelectorAll(s));
-
-  const matchedText = qs('#matchedText');
-  const scoreText = qs('#scoreText');
-  const badge = qs('#approvalBadge');
-  const msg = qs('#approvalMessage');
-  const next = qs('#approvalNext');
-  const confetti = qs('#confetti');
-
-  const lightbox = qs('#lightbox');
-  const lightboxImg = qs('#lightboxImg');
-
-  function setBadge(text, className){
-    badge.className = 'badge ' + (className || '');
-    badge.textContent = text;
-  }
-
-  function clearConfetti(){ confetti.innerHTML = ''; }
-  function fireConfetti(n=24){
-    clearConfetti();
-    for(let i=0;i<n;i++) {
-      const s=document.createElement('span');
-      s.className='c';
-      s.style.left = Math.random()*100 + '%';
-      s.style.animationDelay = (Math.random()*0.6) + 's';
-      confetti.appendChild(s);
-    }
-  }
-
-  function readState(){
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    } catch(e) { return {}; }
-  }
-
-  function writeState(state){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
-
-  function compute(){
-    const checks = qsa('.slotCheck');
-    const matched = checks.filter(c=>c.checked).length;
-    const pct = Math.round((matched / TOTAL_SLOTS) * 100);
-    matchedText.textContent = matched + ' of ' + TOTAL_SLOTS;
-    scoreText.textContent = pct + '%';
-
-    // Approval logic: simple + readable
-    if(matched === 0){
-      setBadge('Pending', 'bPending');
-      msg.textContent = 'Mark the matched slots to generate an approval status.';
-      next.textContent = '';
-      clearConfetti();
-    } else if(matched < TOTAL_SLOTS){
-      setBadge('Review', 'bReview');
-      msg.textContent = 'Partial match recorded. Divergence is acceptable when articulated in the form.';
-      next.innerHTML = '<span class="dot"></span> Enter “' + matched + '” as the matched number in the Google Form.';
-      clearConfetti();
-    } else {
-      setBadge('Approved', 'bApproved');
-      msg.textContent = 'Full alignment recorded.';
-      next.innerHTML = '<span class="dot"></span> Enter “' + matched + '” as the matched number in the Google Form.';
-      fireConfetti(30);
-    }
-
-    // persist
-    const state = readState();
-    state.checked = checks.map(c=>c.checked);
-    writeState(state);
-  }
-
-  // restore
-  const state = readState();
-  const checks = qsa('.slotCheck');
-  if(state.checked && Array.isArray(state.checked)) {
-    checks.forEach((c,i)=>c.checked = !!state.checked[i]);
-  }
-
-  // listeners
-  checks.forEach(c=>c.addEventListener('change', compute));
-
-  // lightbox
-  qsa('.imgBtn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const src = btn.getAttribute('data-src');
-      lightboxImg.src = src;
-      lightbox.style.display='flex';
-    });
-  });
-  lightbox.addEventListener('click', ()=>{ lightbox.style.display='none'; });
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') lightbox.style.display='none'; });
-
-  compute();
-})();
-</script>
+  </script>
 </body>
 </html>
