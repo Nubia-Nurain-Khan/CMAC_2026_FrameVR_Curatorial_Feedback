@@ -57,7 +57,7 @@
     }
 
     .stack{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
-.card{
+    .card{
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -166,7 +166,6 @@
     .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
     .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
-    /* Grand celebration */
     /* Confetti now covers the entire page */
     .confetti{ position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
     .confettiPiece{
@@ -175,7 +174,6 @@
       border-radius: 2px;
       opacity: 0;
       transform: translateY(0) rotate(0deg);
-      /* slower + longer fall */
       animation: confettiFall 3200ms cubic-bezier(.2,.9,.2,1) forwards;
     }
     .sparkle{
@@ -220,10 +218,11 @@
       padding: 12px 14px; border-radius: 14px; text-decoration:none;
       border: 1px solid var(--line);
       color: var(--text); background: #fff; font-weight: 650;
+      cursor: pointer;
     }
     .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* --- Details dropdown: add a light directional arrow --- */
+    /* Details dropdown: add a light directional arrow */
     details > summary{
       cursor: pointer;
       list-style: none;
@@ -246,8 +245,8 @@
       transform: translateY(-50%) rotate(180deg);
       color: rgba(17,24,39,.75);
     }
-  
-    /* --- Visual slot checker (less text, more visuals) --- */
+
+    /* Visual slot checker */
     .thumbGrid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -421,105 +420,104 @@ Proceed with the review below.</p>
     </header>
 
     <div class="stack">
-<!-- Left -->
+      <!-- Left -->
       <section class="card">
         <details>
+          <summary>Gallery context and constraints (tap to expand)</summary>
 
-  <summary>Gallery context and constraints (tap to expand)</summary>
-
-<div class="kvs">
-          <div class="kv">
-            <b>Room</b>
-            <span>Eastern Ink: Asian Traditions Across Time</span>
+          <div class="kvs">
+            <div class="kv">
+              <b>Room</b>
+              <span>Eastern Ink: Asian Traditions Across Time</span>
+            </div>
+            <div class="kv">
+              <b>Task</b>
+              <span>Complete 5 remaining slots while maintaining the exhibition constraints.</span>
+            </div>
           </div>
-          <div class="kv">
-            <b>Task</b>
-            <span>Complete 5 remaining slots while maintaining the exhibition constraints.</span>
+
+          <div class="sectionTitle">Key constraints</div>
+          <div class="kvs">
+            <div class="kv"><b>Media diversity</b><span>Four distinct media or techniques represented</span></div>
+            <div class="kv"><b>Temporal scope</b><span>Works spanning at least four centuries</span></div>
+            <div class="kv"><b>Geographic breadth</b><span>At least five distinct countries or regions</span></div>
+            <div class="kv"><b>Provenance</b><span>All works human-made; no AI-generated imagery</span></div>
           </div>
-        </div>
+        </details>
 
-        <div class="sectionTitle">Key constraints</div>
-        <div class="kvs">
-          <div class="kv"><b>Media diversity</b><span>Four distinct media or techniques represented</span></div>
-          <div class="kv"><b>Temporal scope</b><span>Works spanning at least four centuries</span></div>
-          <div class="kv"><b>Geographic breadth</b><span>At least five distinct countries or regions</span></div>
-          <div class="kv"><b>Provenance</b><span>All works human-made; no AI-generated imagery</span></div>
-        </div>
-
-</details>
-
-<div class="note">
+        <div class="note">
           <b>Review note:</b> The lists below reflect the curatorial team’s reference plan.
           If your final selection aligns with it, that is acceptable.
           If your selection differs, please document your interpretive rationale in the form.
         </div>
 
-<div class="sectionTitle">Reference plan for Eastern Ink</div>
+        <div class="sectionTitle">Reference plan for Eastern Ink</div>
 
         <details>
           <summary>Already placed artworks (tap to expand)</summary>
           <ol>
-          <li>
-            <span class="workTitle">Minamoto no Yoritomo Fighting Enemies Bravely</span>
-            <span class="meta">Utagawa Kokunimasa (Japanese, 1874–1944) • 19th century • Woodblock print</span>
-          </li>
-          <li>
-            <span class="workTitle">Calligraphy of a poem by Wang Wei</span>
-            <span class="meta">Jeanette Hsu (American, born China, 1929) • 1978 • Ink on paper, on silk mount</span>
-          </li>
-          <li>
-            <span class="workTitle">Zōriuchi no ba</span>
-            <span class="meta">Utagawa Toyokuni III (Japanese, 1786–1865) • 1853 • Woodcut on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">Hour of Snake, Kept Woman (from the series <em>Customs of Beauties Around the Clock</em>)</span>
-            <span class="meta">Kitagawa Utamaro (Japanese, 1753–1806) • 19th century • Woodcut on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">Ōi (from the series <em>The Sixty-nine Stations of the Kisokaidō Road</em>)</span>
-            <span class="meta">Andō Hiroshige (Japanese, 1797–1858) • c. 1835 • Woodcut on paper</span>
-          </li>
-        </ol>
+            <li>
+              <span class="workTitle">Minamoto no Yoritomo Fighting Enemies Bravely</span>
+              <span class="meta">Utagawa Kokunimasa (Japanese, 1874–1944) • 19th century • Woodblock print</span>
+            </li>
+            <li>
+              <span class="workTitle">Calligraphy of a poem by Wang Wei</span>
+              <span class="meta">Jeanette Hsu (American, born China, 1929) • 1978 • Ink on paper, on silk mount</span>
+            </li>
+            <li>
+              <span class="workTitle">Zōriuchi no ba</span>
+              <span class="meta">Utagawa Toyokuni III (Japanese, 1786–1865) • 1853 • Woodcut on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">Hour of Snake, Kept Woman (from the series <em>Customs of Beauties Around the Clock</em>)</span>
+              <span class="meta">Kitagawa Utamaro (Japanese, 1753–1806) • 19th century • Woodcut on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">Ōi (from the series <em>The Sixty-nine Stations of the Kisokaidō Road</em>)</span>
+              <span class="meta">Andō Hiroshige (Japanese, 1797–1858) • c. 1835 • Woodcut on paper</span>
+            </li>
+          </ol>
         </details>
 
         <div class="slots">
-          <details><summary>Expected artworks for the empty slots (reference plan)</summary>
+          <details>
+            <summary>Expected artworks for the empty slots (reference plan)</summary>
             <ol>
-            <li>
-              <span class="workTitle">Slot 1 — Dandelion with Red Dragonfly (silver)</span>
-              <span class="meta">Hung Liu (Born in Changchun, China, 1948–2021) • 2020 • Mixed media</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 2 — Series: <em>Ise Monogatari</em> (Tales of Ise)</span>
-              <span class="meta">Masanobu (Japanese) • c. 1686–1764 • Woodcut on paper</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 3 — Persian Miniature</span>
-              <span class="meta">Persian • 19th century • Gouache and graphite on paper</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 4 — Tapa Cloth</span>
-              <span class="meta">Samoan • 19th century • Bark cloth with pigments</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 5 — Untitled (Krishna seated on a throne, combing a woman’s hair)</span>
-              <span class="meta">Indian • 19th century • Gouache on paper</span>
-            </li>
-          </ol>
+              <li>
+                <span class="workTitle">Slot 1 — Dandelion with Red Dragonfly (silver)</span>
+                <span class="meta">Hung Liu (Born in Changchun, China, 1948–2021) • 2020 • Mixed media</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 2 — Series: <em>Ise Monogatari</em> (Tales of Ise)</span>
+                <span class="meta">Masanobu (Japanese) • c. 1686–1764 • Woodcut on paper</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 3 — Persian Miniature</span>
+                <span class="meta">Persian • 19th century • Gouache and graphite on paper</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 4 — Tapa Cloth</span>
+                <span class="meta">Samoan • 19th century • Bark cloth with pigments</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 5 — Untitled (Krishna seated on a throne, combing a woman’s hair)</span>
+                <span class="meta">Indian • 19th century • Gouache on paper</span>
+              </li>
+            </ol>
           </details>
         </div>
-
-
-</section>
+      </section>
 
       <!-- Right -->
-      
       <section class="card">
         <h2>Alignment</h2>
-        <p class="small" style="margin-top:0;">Check the artworks in the reference plan list that matched the choice you made in the gallery. The score updates automatically. <span class="muted">(You can tap an image to view it larger.)</span></p>
+        <p class="small" style="margin-top:0;">
+          Check the artworks in the reference plan list that matched the choice you made in the gallery. The score updates automatically.
+          <span class="muted">(You can tap an image to view it larger.)</span>
+        </p>
 
         <div class="thumbGrid" id="thumbGrid">
-          
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="1">
@@ -534,7 +532,7 @@ Proceed with the review below.</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="2">
@@ -549,7 +547,7 @@ Proceed with the review below.</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="3">
@@ -564,7 +562,7 @@ Proceed with the review below.</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="4">
@@ -579,7 +577,7 @@ Proceed with the review below.</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="5">
@@ -594,7 +592,7 @@ Proceed with the review below.</p>
               </div>
             </button>
           </div>
-        
+
         </div>
 
         <div class="controlsRow">
@@ -639,7 +637,7 @@ Proceed with the review below.</p>
       </section>
 
       <section class="card" id="submit">
-<h2 style="margin-top:14px;">Submit for approval once completed</h2>
+        <h2 style="margin-top:14px;">Submit for approval once completed</h2>
         <p class="small">Your response is saved automatically. Please do not include any sensitive personal information.</p>
 
         <div class="iframeWrap">
@@ -652,9 +650,9 @@ Proceed with the review below.</p>
         </div>
 
         <div class="actions">
-          <a class="btn btnPrimary" href="https://framevr.io/curatorial-constraints-cmac-exhibition#entrance">
+          <button class="btn btnPrimary" type="button" onclick="returnToExhibition()">
             Return to Exhibition
-          </a>
+          </button>
         </div>
 
         <p class="small">
@@ -664,10 +662,24 @@ Proceed with the review below.</p>
     </div>
   </div>
 
- <script>
-
+  <script>
     (function(){
       const TOTAL_SLOTS = 5;
+
+      // IMPORTANT: set your FrameVR return URL here
+      const FRAMEVR_URL = "https://framevr.io/curatorial-constraints-cmac-exhibition#entrance";
+
+      // Return handler: prefer focusing FrameVR tab + closing this tab; fallback is same-tab navigation.
+      window.returnToExhibition = function returnToExhibition(){
+        if (window.opener && !window.opener.closed) {
+          try { window.opener.focus(); } catch(e) {}
+          try { window.close(); } catch(e) {}
+          // If the browser blocks close(), at least avoid opening a second FrameVR tab:
+          try { window.location.replace(FRAMEVR_URL); } catch(e) { window.location.href = FRAMEVR_URL; }
+          return;
+        }
+        try { window.location.replace(FRAMEVR_URL); } catch(e) { window.location.href = FRAMEVR_URL; }
+      };
 
       const matchedText = document.getElementById('matchedText');
       const scoreText = document.getElementById('scoreText');
@@ -686,6 +698,7 @@ Proceed with the review below.</p>
       const modalClose = document.getElementById('modalClose');
       const modalTitle = document.getElementById('modalTitle');
 
+      // These are optional (only used if those elements exist on the page)
       const notes = document.getElementById('reviewNotes');
       const copyBtn = document.getElementById('copyNotes');
       const copyStatus = document.getElementById('copyStatus');
@@ -704,7 +717,7 @@ Proceed with the review below.</p>
         const palette = [accent, '#111827', '#4b5563', '#9ca3af', '#f3f4f6', '#10b981', '#f59e0b'];
 
         const pieces = 120;
-        for(let i=0;i<pieces;i++){ 
+        for(let i=0;i<pieces;i++){
           const p = document.createElement('div');
           p.className = 'confettiPiece';
           p.style.left = (Math.random()*100) + '%';
@@ -767,14 +780,12 @@ Proceed with the review below.</p>
 
       boxes.forEach(b => b.addEventListener('change', update));
 
-      
       if(copyBtn && notes){
         copyBtn.addEventListener('click', async () => {
           try{
             await navigator.clipboard.writeText(notes.value || '');
             copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
           }catch(err){
-            // Fallback
             notes.focus();
             notes.select();
             document.execCommand('copy');
@@ -819,7 +830,6 @@ Proceed with the review below.</p>
 
       update();
     })();
-    
   </script>
 </body>
 </html>
