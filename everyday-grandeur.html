@@ -110,6 +110,7 @@
     .scoreRow b{ color: var(--text); }
     .hint{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
+    /* Approval panel */
     .approvalPanel{
       margin-top: 12px;
       border:1px solid var(--line);
@@ -146,6 +147,7 @@
     .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
     .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
+    /* Confetti covers the entire page */
     .confetti{ position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
     .confettiPiece{
       position:absolute;
@@ -201,6 +203,7 @@
     }
     .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
 
+    /* Dropdown arrow */
     details > summary{
       cursor: pointer;
       list-style: none;
@@ -224,6 +227,7 @@
       color: rgba(17,24,39,.75);
     }
 
+    /* Visual slot checker */
     .thumbGrid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -306,6 +310,7 @@
       cursor:pointer;
     }
 
+    /* Modal */
     .modal{
       position:fixed;
       inset:0;
@@ -378,10 +383,10 @@
   <div class="wrap">
     <header>
       <h1>Curatorial Review Submission</h1>
-      <p class="sub">Everyday Grandeur: American Prints and the Ordinary Made Visible
+      <p class="sub">Everyday Grandeur: American Art Reimagined
 
 Thank you for your curatorial contribution to this installation.
-The gallery has been completed under defined material, temporal, and contextual constraints.
+The gallery has been completed under defined material, authorial, and representational constraints.
 
 This form records alignment with the original curatorial framework and identifies areas of interpretive divergence.
 
@@ -395,6 +400,7 @@ Proceed with the review below.</p>
     </header>
 
     <div class="stack">
+      <!-- Left -->
       <section class="card">
         <details>
           <summary>Gallery context and constraints (tap to expand)</summary>
@@ -402,20 +408,20 @@ Proceed with the review below.</p>
           <div class="kvs">
             <div class="kv">
               <b>Room</b>
-              <span>Everyday Grandeur: American Prints and the Ordinary Made Visible</span>
+              <span>Everyday Grandeur: American Art Reimagined</span>
             </div>
             <div class="kv">
               <b>Task</b>
-              <span>Complete the remaining slots while maintaining the exhibition constraints.</span>
+              <span>Complete 5 remaining slots while maintaining the exhibition constraints.</span>
             </div>
           </div>
 
           <div class="sectionTitle">Key constraints</div>
           <div class="kvs">
-            <div class="kv"><b>Required techniques</b><span>At least 1 each: lithograph, etching, engraving, linocut</span></div>
-            <div class="kv"><b>Artist limit</b><span>No more than 2 Homer works</span></div>
-            <div class="kv"><b>Artist background</b><span>At least 4 immigrant artists represented</span></div>
-            <div class="kv"><b>AI inclusion</b><span>Exactly one AI work included</span></div>
+            <div class="kv"><b>Print techniques</b><span>At least one work each in lithograph, etching, engraving, and linocut</span></div>
+            <div class="kv"><b>Artist limit</b><span>No more than two works by Winslow Homer</span></div>
+            <div class="kv"><b>Immigrant representation</b><span>At least four works by immigrant artists</span></div>
+            <div class="kv"><b>Contemporary inclusion</b><span>One AI-generated work</span></div>
           </div>
         </details>
 
@@ -429,24 +435,60 @@ Proceed with the review below.</p>
 
         <details>
           <summary>Already placed artworks (tap to expand)</summary>
-          <!-- (kept as in your current file) -->
-          <!-- If you already have this list in your repo version, paste it here. -->
           <ol>
-            <!-- placeholder -->
+            <li>
+              <span class="workTitle">Untitled</span>
+              <span class="meta">Jack Youngerman (Born in St. Louis, Missouri, 1926–2020) • 1951 • Linocut on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">Maid Cutting Ice</span>
+              <span class="meta">John Sloan (American, 1871–1951) • 1918 • Oil with tempera and oil-varnish glazes on canvas</span>
+            </li>
+            <li>
+              <span class="workTitle">Palozzo Florence</span>
+              <span class="meta">Rudy Pozzatti (American, born 1925) • 1955 • Etching, engraving on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">Skating On the Ladies' Skating Pond In Central Park, New York</span>
+              <span class="meta">Winslow Homer (American, 1836–1910) • 1860 • Wood engraving on paper</span>
+            </li>
+            <li>
+              <span class="workTitle">A Parisian Ball — Dancing at the Mabille, Paris</span>
+              <span class="meta">Winslow Homer (American, 1836–1910) • 1867 • Wood engraving on paper</span>
+            </li>
           </ol>
         </details>
 
         <div class="slots">
           <details>
             <summary>Expected artworks for the empty slots (reference plan)</summary>
-            <!-- (kept as in your current file) -->
             <ol>
-              <!-- placeholder -->
+              <li>
+                <span class="workTitle">Slot 1 — L. B. Johnson: MURDERER (from the portfolio <em>Artists and Writers Protest Against the War in Viet Nam</em>)</span>
+                <span class="meta">Mark di Suvero (American, born China, 1933) • 1967 • Lithograph on paper • Printer: Artists and Writers Protest, Inc., New York, NY • Publisher: Chiron Press, Inc., New York, NY</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 2 — Miami Masters</span>
+                <span class="meta">Malcolm Morley (Born in Great Britain, 1931–2018) • 20th century • Lithograph on paper • Other: Shorewood Fine Art Books, Inc. • Printer: Shorewood Atelier</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 3 — Shame to All but to the Dead</span>
+                <span class="meta">David Davidovich Burliuk (Ukrainian, 1882–1967) • 1933 • Oil on canvas</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 4 — Untitled (abstract)</span>
+                <span class="meta">Joseph Kaplan (American, born Russia, 1900–1980) • 20th century • Tempera on paper</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 5 — Perplexity AI, <em>Urban Solitude</em></span>
+                <span class="meta">American • 2026 • Oil on canvas, 48 × 72 inches • AI-generated for Nasher Museum digital humanities project (user prompt) • Object no. 2026.DH.001</span>
+              </li>
             </ol>
           </details>
         </div>
       </section>
 
+      <!-- Right -->
       <section class="card">
         <h2>Alignment</h2>
         <p class="small" style="margin-top:0;">
@@ -455,17 +497,16 @@ Proceed with the review below.</p>
         </p>
 
         <div class="thumbGrid" id="thumbGrid">
-
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="1">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot1.png" data-caption="Reference plan image for Slot 1.">
-              <img class="thumbImg" src="assets/everyday/slot1.png" alt="Slot 1">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot1.jpg" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot1.jpg" alt="L. B. Johnson: MURDERER">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 1</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 1 — L. B. Johnson: MURDERER</p>
+                <p class="thumbSub">Mark di Suvero • 1967 • Lithograph on paper</p>
               </div>
             </button>
           </div>
@@ -475,11 +516,11 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="2">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot2.png" data-caption="Reference plan image for Slot 2.">
-              <img class="thumbImg" src="assets/everyday/slot2.png" alt="Slot 2">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot2.jpg" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot2.jpg" alt="Miami Masters">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 2</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 2 — Miami Masters</p>
+                <p class="thumbSub">Malcolm Morley • 20th c. • Lithograph on paper</p>
               </div>
             </button>
           </div>
@@ -489,11 +530,11 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="3">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot3.png" data-caption="Reference plan image for Slot 3.">
-              <img class="thumbImg" src="assets/everyday/slot3.png" alt="Slot 3">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot3.jpg" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot3.jpg" alt="Shame to All but to the Dead">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 3</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 3 — Shame to All but to the Dead</p>
+                <p class="thumbSub">David Davidovich Burliuk • 1933 • Oil on canvas</p>
               </div>
             </button>
           </div>
@@ -503,11 +544,11 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="4">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot4.png" data-caption="Reference plan image for Slot 4.">
-              <img class="thumbImg" src="assets/everyday/slot4.png" alt="Slot 4">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot4.jpg" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot4.jpg" alt="Untitled (abstract)">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 4</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 4 — Untitled (abstract)</p>
+                <p class="thumbSub">Joseph Kaplan • 20th c. • Tempera on paper</p>
               </div>
             </button>
           </div>
@@ -517,15 +558,14 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="5">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot5.png" data-caption="Reference plan image for Slot 5.">
-              <img class="thumbImg" src="assets/everyday/slot5.png" alt="Slot 5">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot5.jpg" data-caption="Reference plan image for Slot 5. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/everyday/slot5.jpg" alt="Perplexity AI, Urban Solitude">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 5</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 5 — Perplexity AI, Urban Solitude</p>
+                <p class="thumbSub">American • 2026 • AI-generated oil on canvas (project prompt)</p>
               </div>
             </button>
           </div>
-
         </div>
 
         <div class="controlsRow">
@@ -573,7 +613,7 @@ Proceed with the review below.</p>
 
         <div class="iframeWrap">
           <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSeC2RHzxD5aJ0aF8xV9U_4Jw8P9v0qjE7vQx0r5WZ1e7dZV6g/viewform?embedded=true"
+            src="https://docs.google.com/forms/d/e/1FAIpQLScMION9rtL1KWnWZyxXPGl-17TAo0CWgTb7gEnnQtEzaIymYA/viewform?embedded=true"
             title="Everyday Grandeur — Curatorial Feedback Form"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
@@ -598,9 +638,9 @@ Proceed with the review below.</p>
       const TOTAL_SLOTS = 5;
       const FRAMEVR_URL = "https://framevr.io/curatorial-constraints-cmac-exhibition#entrance";
 
-      // ✅ The only safe return behavior:
-      // - If opener exists: reuse it (no 2nd FrameVR instance), then close this tab.
-      // - If opener is blocked: DO NOT open FrameVR here (prevents dual-tab hang). Ask user to close tab.
+      // ✅ Safe return behavior (same as your Eastern Ink index):
+      // - If opener exists: reuse it and close this tab.
+      // - If opener is blocked: do NOT open FrameVR again (prevents dual-tab hang).
       window.returnToExhibition = function returnToExhibition(){
         if (window.opener && !window.opener.closed) {
           try { window.opener.location.href = FRAMEVR_URL; } catch(e) {}
