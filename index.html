@@ -99,25 +99,6 @@
 
     .small{ color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; }
 
-    .textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background:#fff;
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.45;
-      resize: vertical;
-      box-shadow: 0 8px 18px rgba(0,0,0,.04);
-    }
-    .textarea:focus{ outline: 3px solid rgba(0,0,0,.06); border-color: rgba(0,0,0,.12); }
-
-    .select{
-      padding:8px 10px; border-radius:10px; border:1px solid var(--line);
-      background:#fff; margin-left: 10px;
-    }
-
     .scoreBox{
       border:1px solid var(--line);
       border-radius: 14px;
@@ -166,7 +147,7 @@
     .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
     .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
-    /* Confetti now covers the entire page */
+    /* Confetti covers the entire page */
     .confetti{ position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
     .confettiPiece{
       position:absolute;
@@ -222,7 +203,7 @@
     }
     .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* Details dropdown: add a light directional arrow */
+    /* Dropdown arrow */
     details > summary{
       cursor: pointer;
       list-style: none;
@@ -395,7 +376,6 @@
       list-style: none;
     }
     summary::-webkit-details-marker{ display:none; }
-
   </style>
 </head>
 
@@ -523,7 +503,6 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="1">
               <span>Matched</span>
             </label>
-
             <button class="thumbBtn" type="button" data-full="assets/easternink/slot1.png" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
               <img class="thumbImg" src="assets/easternink/slot1.png" alt="Dandelion with Red Dragonfly (silver)">
               <div class="thumbMeta">
@@ -538,7 +517,6 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="2">
               <span>Matched</span>
             </label>
-
             <button class="thumbBtn" type="button" data-full="assets/easternink/slot2.png" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
               <img class="thumbImg" src="assets/easternink/slot2.png" alt="Series: Ise Monogatari (Tales of Ise)">
               <div class="thumbMeta">
@@ -553,7 +531,6 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="3">
               <span>Matched</span>
             </label>
-
             <button class="thumbBtn" type="button" data-full="assets/easternink/slot3.png" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
               <img class="thumbImg" src="assets/easternink/slot3.png" alt="Persian Miniature">
               <div class="thumbMeta">
@@ -568,7 +545,6 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="4">
               <span>Matched</span>
             </label>
-
             <button class="thumbBtn" type="button" data-full="assets/easternink/slot4.png" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
               <img class="thumbImg" src="assets/easternink/slot4.png" alt="Tapa Cloth">
               <div class="thumbMeta">
@@ -583,7 +559,6 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="5">
               <span>Matched</span>
             </label>
-
             <button class="thumbBtn" type="button" data-full="assets/easternink/slot5.png" data-caption="Reference plan image for Slot 5. Replace this file with the correct artwork image.">
               <img class="thumbImg" src="assets/easternink/slot5.png" alt="Untitled (Krishna seated on a throne, combing a woman’s hair)">
               <div class="thumbMeta">
@@ -620,7 +595,6 @@ Proceed with the review below.</p>
           <div id="approvalNext" class="approvalNext"></div>
         </div>
 
-        <!-- Confetti layer (full-page) -->
         <div id="confetti" class="confetti" aria-hidden="true"></div>
 
         <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Artwork preview">
@@ -633,7 +607,6 @@ Proceed with the review below.</p>
             <div class="modalCaption" id="modalCaption"></div>
           </div>
         </div>
-
       </section>
 
       <section class="card" id="submit">
@@ -665,20 +638,19 @@ Proceed with the review below.</p>
   <script>
     (function(){
       const TOTAL_SLOTS = 5;
-
-      // IMPORTANT: set your FrameVR return URL here
       const FRAMEVR_URL = "https://framevr.io/curatorial-constraints-cmac-exhibition#entrance";
 
-      // Return handler: prefer focusing FrameVR tab + closing this tab; fallback is same-tab navigation.
+      // ✅ The only safe return behavior:
+      // - If opener exists: reuse it (no 2nd FrameVR instance), then close this tab.
+      // - If opener is blocked: DO NOT open FrameVR here (prevents dual-tab hang). Ask user to close tab.
       window.returnToExhibition = function returnToExhibition(){
         if (window.opener && !window.opener.closed) {
+          try { window.opener.location.href = FRAMEVR_URL; } catch(e) {}
           try { window.opener.focus(); } catch(e) {}
           try { window.close(); } catch(e) {}
-          // If the browser blocks close(), at least avoid opening a second FrameVR tab:
-          try { window.location.replace(FRAMEVR_URL); } catch(e) { window.location.href = FRAMEVR_URL; }
           return;
         }
-        try { window.location.replace(FRAMEVR_URL); } catch(e) { window.location.href = FRAMEVR_URL; }
+        alert("To avoid opening FrameVR twice (which can hang), please close this tab to return to the exhibition.");
       };
 
       const matchedText = document.getElementById('matchedText');
@@ -697,11 +669,6 @@ Proceed with the review below.</p>
       const modalCaption = document.getElementById('modalCaption');
       const modalClose = document.getElementById('modalClose');
       const modalTitle = document.getElementById('modalTitle');
-
-      // These are optional (only used if those elements exist on the page)
-      const notes = document.getElementById('reviewNotes');
-      const copyBtn = document.getElementById('copyNotes');
-      const copyStatus = document.getElementById('copyStatus');
 
       function setBadge(text, cls){
         badge.className = 'badge ' + cls;
@@ -779,20 +746,6 @@ Proceed with the review below.</p>
       }
 
       boxes.forEach(b => b.addEventListener('change', update));
-
-      if(copyBtn && notes){
-        copyBtn.addEventListener('click', async () => {
-          try{
-            await navigator.clipboard.writeText(notes.value || '');
-            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
-          }catch(err){
-            notes.focus();
-            notes.select();
-            document.execCommand('copy');
-            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
-          }
-        });
-      }
 
       clearBtn.addEventListener('click', () => {
         boxes.forEach(b => b.checked = false);
