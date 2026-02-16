@@ -7,7 +7,7 @@
 
   <style>
     :root{
-      --accent:#3b1b5a; /* Sacred Fragments (Purple) */
+      --accent:#005500; /* Sacred Fragments (Green) */
       --bg:#f3f4f6;
       --panel:#ffffff;
       --text:#111827;
@@ -28,7 +28,7 @@
     .wrap{ max-width: 1060px; margin: 0 auto; padding: 28px 18px 44px; }
 
     header{
-      background: linear-gradient(135deg, rgba(59,27,90,.10), rgba(59,27,90,.04));
+      background: linear-gradient(135deg, rgba(0,85,0,.10), rgba(0,85,0,.04));
       border: 1px solid var(--line);
       border-left: 10px solid var(--accent);
       border-radius: var(--radius);
@@ -79,7 +79,7 @@
 
     .note{
       border-left: 6px solid var(--accent);
-      background: rgba(59,27,90,.06);
+      background: rgba(0,85,0,.06);
       border-radius: 12px;
       padding: 10px 12px;
       color: var(--muted);
@@ -110,6 +110,7 @@
     .scoreRow b{ color: var(--text); }
     .hint{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
+    /* Approval panel */
     .approvalPanel{
       margin-top: 12px;
       border:1px solid var(--line);
@@ -146,6 +147,7 @@
     .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
     .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
+    /* Confetti covers the entire page */
     .confetti{ position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
     .confettiPiece{
       position:absolute;
@@ -201,6 +203,7 @@
     }
     .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
 
+    /* Dropdown arrow */
     details > summary{
       cursor: pointer;
       list-style: none;
@@ -224,6 +227,7 @@
       color: rgba(17,24,39,.75);
     }
 
+    /* Visual slot checker */
     .thumbGrid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -306,6 +310,7 @@
       cursor:pointer;
     }
 
+    /* Modal */
     .modal{
       position:fixed;
       inset:0;
@@ -381,7 +386,7 @@
       <p class="sub">Sacred Fragments: Medieval Worlds
 
 Thank you for your curatorial contribution to this installation.
-The gallery has been completed under defined material, temporal, and geographic constraints.
+The gallery has been completed under defined material, chronological, and geographic constraints.
 
 This form records alignment with the original curatorial framework and identifies areas of interpretive divergence.
 
@@ -395,6 +400,7 @@ Proceed with the review below.</p>
     </header>
 
     <div class="stack">
+      <!-- Left -->
       <section class="card">
         <details>
           <summary>Gallery context and constraints (tap to expand)</summary>
@@ -406,16 +412,16 @@ Proceed with the review below.</p>
             </div>
             <div class="kv">
               <b>Task</b>
-              <span>Complete the remaining slots while maintaining the exhibition constraints.</span>
+              <span>Fill 4 open slots while maintaining the exhibition constraints.</span>
             </div>
           </div>
 
           <div class="sectionTitle">Key constraints</div>
           <div class="kvs">
-            <div class="kv"><b>Stained glass limit</b><span>No more than 5 stained glass works</span></div>
-            <div class="kv"><b>Temporal scope</b><span>Works from 6 centuries</span></div>
-            <div class="kv"><b>Geographic breadth</b><span>Works from at least 3 locations/countries</span></div>
-            <div class="kv"><b>Provenance</b><span>All human-made; no AI-generated imagery</span></div>
+            <div class="kv"><b>Stained glass balance</b><span>No more than 6 stained glass</span></div>
+            <div class="kv"><b>Chronological range</b><span>Works spanning at least six centuries</span></div>
+            <div class="kv"><b>Geographic distribution</b><span>Multiple distinct countries or regions represented</span></div>
+            <div class="kv"><b>Authenticity</b><span>All works human-made; no AI-generated imagery</span></div>
           </div>
         </details>
 
@@ -429,9 +435,31 @@ Proceed with the review below.</p>
 
         <details>
           <summary>Already placed artworks (tap to expand)</summary>
-          <!-- (kept as in your current file) -->
           <ol>
-            <!-- placeholder -->
+            <li>
+              <span class="workTitle">Head of a bearded man</span>
+              <span class="meta">Austrian • 1550–1600 • Stained glass and lead</span>
+            </li>
+            <li>
+              <span class="workTitle">The Visitation</span>
+              <span class="meta">Austrian • c. 1350 • Stained glass and lead</span>
+            </li>
+            <li>
+              <span class="workTitle">Descent from the Cross</span>
+              <span class="meta">French • c. 1250 • Stained glass and lead</span>
+            </li>
+            <li>
+              <span class="workTitle">God and the Tree of Knowledge</span>
+              <span class="meta">French • c. 1250 • Stained glass and lead</span>
+            </li>
+            <li>
+              <span class="workTitle">Book of Hours</span>
+              <span class="meta">Workshop of Jean Bourdichon (French, c. 1457–1521) • c. 1490 • Tempera, shell gold, and ink on vellum</span>
+            </li>
+            <li>
+              <span class="workTitle">Christ and the Two Thieves</span>
+              <span class="meta">French • 1430–1440 • Tempera, burnished gold, and ink on vellum</span>
+            </li>
           </ol>
         </details>
 
@@ -439,12 +467,28 @@ Proceed with the review below.</p>
           <details>
             <summary>Expected artworks for the empty slots (reference plan)</summary>
             <ol>
-              <!-- placeholder -->
+              <li>
+                <span class="workTitle">Slot 1 — Engraved Cross</span>
+                <span class="meta">Italian • 12th century • Gilt copper</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 2 — The Bad Thief</span>
+                <span class="meta">Flemish or German • c. 1525 • Stained glass and lead</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 3 — Transenna panel</span>
+                <span class="meta">Italian • 900–1100 CE • Marble</span>
+              </li>
+              <li>
+                <span class="workTitle">Slot 4 — Top of lancet window with architectural canopy</span>
+                <span class="meta">Austrian • 1400–1430 • Stained glass and lead</span>
+              </li>
             </ol>
           </details>
         </div>
       </section>
 
+      <!-- Right -->
       <section class="card">
         <h2>Alignment</h2>
         <p class="small" style="margin-top:0;">
@@ -453,17 +497,16 @@ Proceed with the review below.</p>
         </p>
 
         <div class="thumbGrid" id="thumbGrid">
-
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="1">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot1.png" data-caption="Reference plan image for Slot 1.">
-              <img class="thumbImg" src="assets/sacred/slot1.png" alt="Slot 1">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot1.jpg" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/sacred/slot1.jpg" alt="Engraved Cross">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 1</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 1 — Engraved Cross</p>
+                <p class="thumbSub">Italian • 12th century • Gilt copper</p>
               </div>
             </button>
           </div>
@@ -473,11 +516,11 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="2">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot2.png" data-caption="Reference plan image for Slot 2.">
-              <img class="thumbImg" src="assets/sacred/slot2.png" alt="Slot 2">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot2.jpg" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/sacred/slot2.jpg" alt="The Bad Thief">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 2</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 2 — The Bad Thief</p>
+                <p class="thumbSub">Flemish or German • c. 1525 • Stained glass and lead</p>
               </div>
             </button>
           </div>
@@ -487,11 +530,11 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="3">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot3.png" data-caption="Reference plan image for Slot 3.">
-              <img class="thumbImg" src="assets/sacred/slot3.png" alt="Slot 3">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot3.jpg" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/sacred/slot3.jpg" alt="Transenna panel">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 3</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 3 — Transenna panel</p>
+                <p class="thumbSub">Italian • 900–1100 CE • Marble</p>
               </div>
             </button>
           </div>
@@ -501,15 +544,14 @@ Proceed with the review below.</p>
               <input type="checkbox" class="matchBox" data-slot="4">
               <span>Matched</span>
             </label>
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot4.png" data-caption="Reference plan image for Slot 4.">
-              <img class="thumbImg" src="assets/sacred/slot4.png" alt="Slot 4">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot4.jpg" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
+              <img class="thumbImg" src="assets/sacred/slot4.jpg" alt="Top of lancet window with architectural canopy">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 4</p>
-                <p class="thumbSub">Reference plan</p>
+                <p class="thumbTitle">Slot 4 — Top of lancet window with architectural canopy</p>
+                <p class="thumbSub">Austrian • 1400–1430 • Stained glass and lead</p>
               </div>
             </button>
           </div>
-
         </div>
 
         <div class="controlsRow">
@@ -557,7 +599,7 @@ Proceed with the review below.</p>
 
         <div class="iframeWrap">
           <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSd5u3OaH0w4m7b2dTqfWq2d2s0m2o0p2q1r0s9t8u7v6w5x4y3z/viewform?embedded=true"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSf9TMjN10p57Z7GTKjy7NhuzMsqp6hiGDtfbr8FzcNQvv106A/viewform?embedded=true"
             title="Sacred Fragments — Curatorial Feedback Form"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
@@ -582,6 +624,7 @@ Proceed with the review below.</p>
       const TOTAL_SLOTS = 4;
       const FRAMEVR_URL = "https://framevr.io/curatorial-constraints-cmac-exhibition#entrance";
 
+      // ✅ Safe return behavior (same as your Eastern Ink index):
       window.returnToExhibition = function returnToExhibition(){
         if (window.opener && !window.opener.closed) {
           try { window.opener.location.href = FRAMEVR_URL; } catch(e) {}
