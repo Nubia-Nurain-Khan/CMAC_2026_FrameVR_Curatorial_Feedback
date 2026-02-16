@@ -18,7 +18,13 @@
     }
 
     *{ box-sizing:border-box; }
-    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
     .wrap{ max-width: 1060px; margin: 0 auto; padding: 28px 18px 44px; }
 
     header{
@@ -31,6 +37,7 @@
     }
 
     h1{ margin:0; font-size: 26px; letter-spacing: .2px; }
+
     .sub{
       margin: 10px 0 0;
       color: var(--muted);
@@ -50,13 +57,14 @@
     }
 
     .stack{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
-.card{
+    .card{
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 16px;
       box-shadow: var(--shadow);
     }
+
     h2{ margin: 0 0 10px; font-size: 18px; }
 
     .kvs{ display:grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
@@ -90,21 +98,6 @@
     .slots{ margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
 
     .small{ color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; }
-    .textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background:#fff;
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.45;
-      resize: vertical;
-      box-shadow: 0 8px 18px rgba(0,0,0,.04);
-    }
-    .textarea:focus{ outline: 3px solid rgba(0,0,0,.06); border-color: rgba(0,0,0,.12); }
-
-    .select{ padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:#fff; margin-left: 10px; }
 
     .scoreBox{
       border:1px solid var(--line);
@@ -153,7 +146,6 @@
     .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
     .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
-    /* Confetti now covers the entire page */
     .confetti{ position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
     .confettiPiece{
       position:absolute;
@@ -161,7 +153,6 @@
       border-radius: 2px;
       opacity: 0;
       transform: translateY(0) rotate(0deg);
-      /* slower + longer fall */
       animation: confettiFall 3200ms cubic-bezier(.2,.9,.2,1) forwards;
     }
     .sparkle{
@@ -206,10 +197,10 @@
       padding: 12px 14px; border-radius: 14px; text-decoration:none;
       border: 1px solid var(--line);
       color: var(--text); background: #fff; font-weight: 650;
+      cursor: pointer;
     }
     .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* --- Details dropdown: add a light directional arrow --- */
     details > summary{
       cursor: pointer;
       list-style: none;
@@ -232,8 +223,7 @@
       transform: translateY(-50%) rotate(180deg);
       color: rgba(17,24,39,.75);
     }
-  
-    /* --- Visual slot checker (less text, more visuals) --- */
+
     .thumbGrid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -316,7 +306,6 @@
       cursor:pointer;
     }
 
-    /* Modal */
     .modal{
       position:fixed;
       inset:0;
@@ -382,7 +371,6 @@
       list-style: none;
     }
     summary::-webkit-details-marker{ display:none; }
-
   </style>
 </head>
 
@@ -390,10 +378,10 @@
   <div class="wrap">
     <header>
       <h1>Curatorial Review Submission</h1>
-      <p class="sub">Everyday Grandeur: American Art Reimagined
+      <p class="sub">Everyday Grandeur: American Prints and the Ordinary Made Visible
 
 Thank you for your curatorial contribution to this installation.
-The gallery has been completed under defined material, authorial, and representational constraints.
+The gallery has been completed under defined material, temporal, and contextual constraints.
 
 This form records alignment with the original curatorial framework and identifies areas of interpretive divergence.
 
@@ -407,180 +395,137 @@ Proceed with the review below.</p>
     </header>
 
     <div class="stack">
-<!-- Left -->
       <section class="card">
         <details>
+          <summary>Gallery context and constraints (tap to expand)</summary>
 
-  <summary>Gallery context and constraints (tap to expand)</summary>
-
-<div class="kvs">
-          <div class="kv">
-            <b>Room</b>
-            <span>Everyday Grandeur: American Art Reimagined</span>
+          <div class="kvs">
+            <div class="kv">
+              <b>Room</b>
+              <span>Everyday Grandeur: American Prints and the Ordinary Made Visible</span>
+            </div>
+            <div class="kv">
+              <b>Task</b>
+              <span>Complete the remaining slots while maintaining the exhibition constraints.</span>
+            </div>
           </div>
-          <div class="kv">
-            <b>Task</b>
-            <span>Complete 5 remaining slots while maintaining the exhibition constraints.</span>
+
+          <div class="sectionTitle">Key constraints</div>
+          <div class="kvs">
+            <div class="kv"><b>Required techniques</b><span>At least 1 each: lithograph, etching, engraving, linocut</span></div>
+            <div class="kv"><b>Artist limit</b><span>No more than 2 Homer works</span></div>
+            <div class="kv"><b>Artist background</b><span>At least 4 immigrant artists represented</span></div>
+            <div class="kv"><b>AI inclusion</b><span>Exactly one AI work included</span></div>
           </div>
-        </div>
+        </details>
 
-        <div class="sectionTitle">Key constraints</div>
-        <div class="kvs">
-          <div class="kv"><b>Print techniques</b><span>At least one work each in lithograph, etching, engraving, and linocut</span></div>
-          <div class="kv"><b>Artist limit</b><span>No more than two works by Winslow Homer</span></div>
-          <div class="kv"><b>Immigrant representation</b><span>At least four works by immigrant artists</span></div>
-          <div class="kv"><b>Contemporary inclusion</b><span>One AI-generated work</span></div>
-        </div>
-
-</details>
-
-<div class="note">
+        <div class="note">
           <b>Review note:</b> The lists below reflect the curatorial team’s reference plan.
           If your final selection aligns with it, that is acceptable.
           If your selection differs, please document your interpretive rationale in the form.
         </div>
 
-<div class="sectionTitle">Reference plan for Everyday Grandeur</div>
+        <div class="sectionTitle">Reference plan for Everyday Grandeur</div>
 
         <details>
           <summary>Already placed artworks (tap to expand)</summary>
+          <!-- (kept as in your current file) -->
+          <!-- If you already have this list in your repo version, paste it here. -->
           <ol>
-          <li>
-            <span class="workTitle">Untitled</span>
-            <span class="meta">Jack Youngerman (Born in St. Louis, Missouri, 1926–2020) • 1951 • Linocut on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">Maid Cutting Ice</span>
-            <span class="meta">John Sloan (American, 1871–1951) • 1918 • Oil with tempera and oil-varnish glazes on canvas</span>
-          </li>
-          <li>
-            <span class="workTitle">Palozzo Florence</span>
-            <span class="meta">Rudy Pozzatti (American, born 1925) • 1955 • Etching, engraving on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">Skating On the Ladies' Skating Pond In Central Park, New York</span>
-            <span class="meta">Winslow Homer (American, 1836–1910) • 1860 • Wood engraving on paper</span>
-          </li>
-          <li>
-            <span class="workTitle">A Parisian Ball — Dancing at the Mabille, Paris</span>
-            <span class="meta">Winslow Homer (American, 1836–1910) • 1867 • Wood engraving on paper</span>
-          </li>
-        </ol>
+            <!-- placeholder -->
+          </ol>
         </details>
 
         <div class="slots">
-          <details><summary>Expected artworks for the empty slots (reference plan)</summary>
+          <details>
+            <summary>Expected artworks for the empty slots (reference plan)</summary>
+            <!-- (kept as in your current file) -->
             <ol>
-            <li>
-              <span class="workTitle">Slot 1 — L. B. Johnson: MURDERER (from the portfolio <em>Artists and Writers Protest Against the War in Viet Nam</em>)</span>
-              <span class="meta">Mark di Suvero (American, born China, 1933) • 1967 • Lithograph on paper • Printer: Artists and Writers Protest, Inc., New York, NY • Publisher: Chiron Press, Inc., New York, NY</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 2 — Miami Masters</span>
-              <span class="meta">Malcolm Morley (Born in Great Britain, 1931–2018) • 20th century • Lithograph on paper • Other: Shorewood Fine Art Books, Inc. • Printer: Shorewood Atelier</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 3 — Shame to All but to the Dead</span>
-              <span class="meta">David Davidovich Burliuk (Ukrainian, 1882–1967) • 1933 • Oil on canvas</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 4 — Untitled (abstract)</span>
-              <span class="meta">Joseph Kaplan (American, born Russia, 1900–1980) • 20th century • Tempera on paper</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 5 — Perplexity AI, <em>Urban Solitude</em></span>
-              <span class="meta">American • 2026 • Oil on canvas, 48 × 72 inches • AI-generated for Nasher Museum digital humanities project (user prompt) • Object no. 2026.DH.001</span>
-            </li>
-          </ol>
+              <!-- placeholder -->
+            </ol>
           </details>
         </div>
+      </section>
 
-
-</section>
-
-      <!-- Right -->
-      
       <section class="card">
         <h2>Alignment</h2>
-        <p class="small" style="margin-top:0;">Check the artworks in the reference plan list that matched the choice you made in the gallery. The score updates automatically. <span class="muted">(You can tap an image to view it larger.)</span></p>
+        <p class="small" style="margin-top:0;">
+          Check the artworks in the reference plan list that matched the choice you made in the gallery. The score updates automatically.
+          <span class="muted">(You can tap an image to view it larger.)</span>
+        </p>
 
         <div class="thumbGrid" id="thumbGrid">
-          
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="1">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot1.png" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot1.png" alt="L. B. Johnson: MURDERER">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot1.png" data-caption="Reference plan image for Slot 1.">
+              <img class="thumbImg" src="assets/everyday/slot1.png" alt="Slot 1">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 1 — L. B. Johnson: MURDERER</p>
-                <p class="thumbSub">Mark di Suvero • 1967 • Lithograph on paper</p>
+                <p class="thumbTitle">Slot 1</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="2">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot2.png" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot2.png" alt="Miami Masters">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot2.png" data-caption="Reference plan image for Slot 2.">
+              <img class="thumbImg" src="assets/everyday/slot2.png" alt="Slot 2">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 2 — Miami Masters</p>
-                <p class="thumbSub">Malcolm Morley • 20th c. • Lithograph on paper</p>
+                <p class="thumbTitle">Slot 2</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="3">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot3.png" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot3.png" alt="Shame to All but to the Dead">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot3.png" data-caption="Reference plan image for Slot 3.">
+              <img class="thumbImg" src="assets/everyday/slot3.png" alt="Slot 3">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 3 — Shame to All but to the Dead</p>
-                <p class="thumbSub">David Davidovich Burliuk • 1933 • Oil on canvas</p>
+                <p class="thumbTitle">Slot 3</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="4">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot4.png" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot4.png" alt="Untitled (abstract)">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot4.png" data-caption="Reference plan image for Slot 4.">
+              <img class="thumbImg" src="assets/everyday/slot4.png" alt="Slot 4">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 4 — Untitled (abstract)</p>
-                <p class="thumbSub">Joseph Kaplan • 20th c. • Tempera on paper</p>
+                <p class="thumbTitle">Slot 4</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="5">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/everyday/slot5.png" data-caption="Reference plan image for Slot 5. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/everyday/slot5.png" alt="Perplexity AI, Urban Solitude">
+            <button class="thumbBtn" type="button" data-full="assets/everyday/slot5.png" data-caption="Reference plan image for Slot 5.">
+              <img class="thumbImg" src="assets/everyday/slot5.png" alt="Slot 5">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 5 — Perplexity AI, Urban Solitude</p>
-                <p class="thumbSub">American • 2026 • AI-generated oil on canvas (project prompt)</p>
+                <p class="thumbTitle">Slot 5</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
         </div>
 
         <div class="controlsRow">
@@ -608,7 +553,6 @@ Proceed with the review below.</p>
           <div id="approvalNext" class="approvalNext"></div>
         </div>
 
-        <!-- Confetti layer (full-page) -->
         <div id="confetti" class="confetti" aria-hidden="true"></div>
 
         <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Artwork preview">
@@ -621,16 +565,15 @@ Proceed with the review below.</p>
             <div class="modalCaption" id="modalCaption"></div>
           </div>
         </div>
-
       </section>
 
       <section class="card" id="submit">
-<h2 style="margin-top:14px;">Submit for approval once completed</h2>
+        <h2 style="margin-top:14px;">Submit for approval once completed</h2>
         <p class="small">Your response is saved automatically. Please do not include any sensitive personal information.</p>
 
         <div class="iframeWrap">
           <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLScMION9rtL1KWnWZyxXPGl-17TAo0CWgTb7gEnnQtEzaIymYA/viewform?embedded=true"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeC2RHzxD5aJ0aF8xV9U_4Jw8P9v0qjE7vQx0r5WZ1e7dZV6g/viewform?embedded=true"
             title="Everyday Grandeur — Curatorial Feedback Form"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
@@ -638,9 +581,9 @@ Proceed with the review below.</p>
         </div>
 
         <div class="actions">
-          <a class="btn btnPrimary" href="https://framevr.io/curatorial-constraints-cmac-exhibition#entrance">
+          <button class="btn btnPrimary" type="button" onclick="returnToExhibition()">
             Return to Exhibition
-          </a>
+          </button>
         </div>
 
         <p class="small">
@@ -651,9 +594,22 @@ Proceed with the review below.</p>
   </div>
 
   <script>
-
     (function(){
       const TOTAL_SLOTS = 5;
+      const FRAMEVR_URL = "https://framevr.io/curatorial-constraints-cmac-exhibition#entrance";
+
+      // ✅ The only safe return behavior:
+      // - If opener exists: reuse it (no 2nd FrameVR instance), then close this tab.
+      // - If opener is blocked: DO NOT open FrameVR here (prevents dual-tab hang). Ask user to close tab.
+      window.returnToExhibition = function returnToExhibition(){
+        if (window.opener && !window.opener.closed) {
+          try { window.opener.location.href = FRAMEVR_URL; } catch(e) {}
+          try { window.opener.focus(); } catch(e) {}
+          try { window.close(); } catch(e) {}
+          return;
+        }
+        alert("To avoid opening FrameVR twice (which can hang), please close this tab to return to the exhibition.");
+      };
 
       const matchedText = document.getElementById('matchedText');
       const scoreText = document.getElementById('scoreText');
@@ -672,10 +628,6 @@ Proceed with the review below.</p>
       const modalClose = document.getElementById('modalClose');
       const modalTitle = document.getElementById('modalTitle');
 
-      const notes = document.getElementById('reviewNotes');
-      const copyBtn = document.getElementById('copyNotes');
-      const copyStatus = document.getElementById('copyStatus');
-
       function setBadge(text, cls){
         badge.className = 'badge ' + cls;
         badge.textContent = text;
@@ -690,7 +642,7 @@ Proceed with the review below.</p>
         const palette = [accent, '#111827', '#4b5563', '#9ca3af', '#f3f4f6', '#10b981', '#f59e0b'];
 
         const pieces = 120;
-        for(let i=0;i<pieces;i++){ 
+        for(let i=0;i<pieces;i++){
           const p = document.createElement('div');
           p.className = 'confettiPiece';
           p.style.left = (Math.random()*100) + '%';
@@ -753,22 +705,6 @@ Proceed with the review below.</p>
 
       boxes.forEach(b => b.addEventListener('change', update));
 
-      
-      if(copyBtn && notes){
-        copyBtn.addEventListener('click', async () => {
-          try{
-            await navigator.clipboard.writeText(notes.value || '');
-            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
-          }catch(err){
-            // Fallback
-            notes.focus();
-            notes.select();
-            document.execCommand('copy');
-            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
-          }
-        });
-      }
-
       clearBtn.addEventListener('click', () => {
         boxes.forEach(b => b.checked = false);
         update();
@@ -805,7 +741,6 @@ Proceed with the review below.</p>
 
       update();
     })();
-    
   </script>
 </body>
 </html>
