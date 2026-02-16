@@ -7,7 +7,7 @@
 
   <style>
     :root{
-      --accent:#005500; /* Sacred Fragments (Green) */
+      --accent:#3b1b5a; /* Sacred Fragments (Purple) */
       --bg:#f3f4f6;
       --panel:#ffffff;
       --text:#111827;
@@ -18,11 +18,17 @@
     }
 
     *{ box-sizing:border-box; }
-    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
     .wrap{ max-width: 1060px; margin: 0 auto; padding: 28px 18px 44px; }
 
     header{
-      background: linear-gradient(135deg, rgba(0,85,0,.10), rgba(0,85,0,.04));
+      background: linear-gradient(135deg, rgba(59,27,90,.10), rgba(59,27,90,.04));
       border: 1px solid var(--line);
       border-left: 10px solid var(--accent);
       border-radius: var(--radius);
@@ -31,6 +37,7 @@
     }
 
     h1{ margin:0; font-size: 26px; letter-spacing: .2px; }
+
     .sub{
       margin: 10px 0 0;
       color: var(--muted);
@@ -50,13 +57,14 @@
     }
 
     .stack{ display:grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
-.card{
+    .card{
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 16px;
       box-shadow: var(--shadow);
     }
+
     h2{ margin: 0 0 10px; font-size: 18px; }
 
     .kvs{ display:grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
@@ -71,7 +79,7 @@
 
     .note{
       border-left: 6px solid var(--accent);
-      background: rgba(0,85,0,.06);
+      background: rgba(59,27,90,.06);
       border-radius: 12px;
       padding: 10px 12px;
       color: var(--muted);
@@ -90,21 +98,6 @@
     .slots{ margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
 
     .small{ color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; }
-    .textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background:#fff;
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.45;
-      resize: vertical;
-      box-shadow: 0 8px 18px rgba(0,0,0,.04);
-    }
-    .textarea:focus{ outline: 3px solid rgba(0,0,0,.06); border-color: rgba(0,0,0,.12); }
-
-    .select{ padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:#fff; margin-left: 10px; }
 
     .scoreBox{
       border:1px solid var(--line);
@@ -153,7 +146,6 @@
     .approvalMessage{ margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.45; }
     .approvalNext{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 
-    /* Confetti now covers the entire page */
     .confetti{ position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
     .confettiPiece{
       position:absolute;
@@ -161,7 +153,6 @@
       border-radius: 2px;
       opacity: 0;
       transform: translateY(0) rotate(0deg);
-      /* slower + longer fall */
       animation: confettiFall 3200ms cubic-bezier(.2,.9,.2,1) forwards;
     }
     .sparkle{
@@ -206,10 +197,10 @@
       padding: 12px 14px; border-radius: 14px; text-decoration:none;
       border: 1px solid var(--line);
       color: var(--text); background: #fff; font-weight: 650;
+      cursor: pointer;
     }
     .btnPrimary{ background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* --- Details dropdown: add a light directional arrow --- */
     details > summary{
       cursor: pointer;
       list-style: none;
@@ -232,8 +223,7 @@
       transform: translateY(-50%) rotate(180deg);
       color: rgba(17,24,39,.75);
     }
-  
-    /* --- Visual slot checker (less text, more visuals) --- */
+
     .thumbGrid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -316,7 +306,6 @@
       cursor:pointer;
     }
 
-    /* Modal */
     .modal{
       position:fixed;
       inset:0;
@@ -382,7 +371,6 @@
       list-style: none;
     }
     summary::-webkit-details-marker{ display:none; }
-
   </style>
 </head>
 
@@ -393,7 +381,7 @@
       <p class="sub">Sacred Fragments: Medieval Worlds
 
 Thank you for your curatorial contribution to this installation.
-The gallery has been completed under defined material, chronological, and geographic constraints.
+The gallery has been completed under defined material, temporal, and geographic constraints.
 
 This form records alignment with the original curatorial framework and identifies areas of interpretive divergence.
 
@@ -407,165 +395,121 @@ Proceed with the review below.</p>
     </header>
 
     <div class="stack">
-<!-- Left -->
       <section class="card">
         <details>
+          <summary>Gallery context and constraints (tap to expand)</summary>
 
-  <summary>Gallery context and constraints (tap to expand)</summary>
-
-<div class="kvs">
-          <div class="kv">
-            <b>Room</b>
-            <span>Sacred Fragments: Medieval Worlds</span>
+          <div class="kvs">
+            <div class="kv">
+              <b>Room</b>
+              <span>Sacred Fragments: Medieval Worlds</span>
+            </div>
+            <div class="kv">
+              <b>Task</b>
+              <span>Complete the remaining slots while maintaining the exhibition constraints.</span>
+            </div>
           </div>
-          <div class="kv">
-            <b>Task</b>
-            <span>Fill 4 open slots while maintaining the exhibition constraints.</span>
+
+          <div class="sectionTitle">Key constraints</div>
+          <div class="kvs">
+            <div class="kv"><b>Stained glass limit</b><span>No more than 5 stained glass works</span></div>
+            <div class="kv"><b>Temporal scope</b><span>Works from 6 centuries</span></div>
+            <div class="kv"><b>Geographic breadth</b><span>Works from at least 3 locations/countries</span></div>
+            <div class="kv"><b>Provenance</b><span>All human-made; no AI-generated imagery</span></div>
           </div>
-        </div>
+        </details>
 
-        <div class="sectionTitle">Key constraints</div>
-        <div class="kvs">
-          <div class="kv"><b>Stained glass balance</b><span>No more than 6 stained glass</span></div>
-          <div class="kv"><b>Chronological range</b><span>Works spanning at least six centuries</span></div>
-          <div class="kv"><b>Geographic distribution</b><span>Multiple distinct countries or regions represented</span></div>
-          <div class="kv"><b>Authenticity</b><span>All works human-made; no AI-generated imagery</span></div>
-        </div>
-
-</details>
-
-<div class="note">
+        <div class="note">
           <b>Review note:</b> The lists below reflect the curatorial team’s reference plan.
           If your final selection aligns with it, that is acceptable.
           If your selection differs, please document your interpretive rationale in the form.
         </div>
 
-<div class="sectionTitle">Reference plan for Sacred Fragments</div>
+        <div class="sectionTitle">Reference plan for Sacred Fragments</div>
 
         <details>
           <summary>Already placed artworks (tap to expand)</summary>
+          <!-- (kept as in your current file) -->
           <ol>
-          <li>
-            <span class="workTitle">Head of a bearded man</span>
-            <span class="meta">Austrian • 1550–1600 • Stained glass and lead</span>
-          </li>
-          <li>
-            <span class="workTitle">The Visitation</span>
-            <span class="meta">Austrian • c. 1350 • Stained glass and lead</span>
-          </li>
-          <li>
-            <span class="workTitle">Descent from the Cross</span>
-            <span class="meta">French • c. 1250 • Stained glass and lead</span>
-          </li>
-          <li>
-            <span class="workTitle">God and the Tree of Knowledge</span>
-            <span class="meta">French • c. 1250 • Stained glass and lead</span>
-          </li>
-          <li>
-            <span class="workTitle">Book of Hours</span>
-            <span class="meta">Workshop of Jean Bourdichon (French, c. 1457–1521) • c. 1490 • Tempera, shell gold, and ink on vellum</span>
-          </li>
-          <li>
-            <span class="workTitle">Christ and the Two Thieves</span>
-            <span class="meta">French • 1430–1440 • Tempera, burnished gold, and ink on vellum</span>
-          </li>
-        </ol>
+            <!-- placeholder -->
+          </ol>
         </details>
 
         <div class="slots">
-          <details><summary>Expected artworks for the empty slots (reference plan)</summary>
+          <details>
+            <summary>Expected artworks for the empty slots (reference plan)</summary>
             <ol>
-            <li>
-              <span class="workTitle">Slot 1 — Engraved Cross</span>
-              <span class="meta">Italian • 12th century • Gilt copper</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 2 — The Bad Thief</span>
-              <span class="meta">Flemish or German • c. 1525 • Stained glass and lead</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 3 — Transenna panel</span>
-              <span class="meta">Italian • 900–1100 CE • Marble</span>
-            </li>
-            <li>
-              <span class="workTitle">Slot 4 — Top of lancet window with architectural canopy</span>
-              <span class="meta">Austrian • 1400–1430 • Stained glass and lead</span>
-            </li>
-          </ol>
+              <!-- placeholder -->
+            </ol>
           </details>
         </div>
+      </section>
 
-
-</section>
-
-      <!-- Right -->
-      
       <section class="card">
         <h2>Alignment</h2>
-        <p class="small" style="margin-top:0;">Check the artworks in the reference plan list that matched the choice you made in the gallery. The score updates automatically. <span class="muted">(You can tap an image to view it larger.)</span></p>
+        <p class="small" style="margin-top:0;">
+          Check the artworks in the reference plan list that matched the choice you made in the gallery. The score updates automatically.
+          <span class="muted">(You can tap an image to view it larger.)</span>
+        </p>
 
         <div class="thumbGrid" id="thumbGrid">
-          
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="1">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot1.png" data-caption="Reference plan image for Slot 1. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/sacred/slot1.png" alt="Engraved Cross">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot1.png" data-caption="Reference plan image for Slot 1.">
+              <img class="thumbImg" src="assets/sacred/slot1.png" alt="Slot 1">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 1 — Engraved Cross</p>
-                <p class="thumbSub">Italian • 12th century • Gilt copper</p>
+                <p class="thumbTitle">Slot 1</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="2">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot2.png" data-caption="Reference plan image for Slot 2. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/sacred/slot2.png" alt="The Bad Thief">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot2.png" data-caption="Reference plan image for Slot 2.">
+              <img class="thumbImg" src="assets/sacred/slot2.png" alt="Slot 2">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 2 — The Bad Thief</p>
-                <p class="thumbSub">Flemish or German • c. 1525 • Stained glass and lead</p>
+                <p class="thumbTitle">Slot 2</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="3">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot3.png" data-caption="Reference plan image for Slot 3. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/sacred/slot3.png" alt="Transenna panel">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot3.png" data-caption="Reference plan image for Slot 3.">
+              <img class="thumbImg" src="assets/sacred/slot3.png" alt="Slot 3">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 3 — Transenna panel</p>
-                <p class="thumbSub">Italian • 900–1100 CE • Marble</p>
+                <p class="thumbTitle">Slot 3</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
           <div class="thumb">
             <label class="checkWrap">
               <input type="checkbox" class="matchBox" data-slot="4">
               <span>Matched</span>
             </label>
-
-            <button class="thumbBtn" type="button" data-full="assets/sacred/slot4.png" data-caption="Reference plan image for Slot 4. Replace this file with the correct artwork image.">
-              <img class="thumbImg" src="assets/sacred/slot4.png" alt="Top of lancet window with architectural canopy">
+            <button class="thumbBtn" type="button" data-full="assets/sacred/slot4.png" data-caption="Reference plan image for Slot 4.">
+              <img class="thumbImg" src="assets/sacred/slot4.png" alt="Slot 4">
               <div class="thumbMeta">
-                <p class="thumbTitle">Slot 4 — Top of lancet window with architectural canopy</p>
-                <p class="thumbSub">Austrian • 1400–1430 • Stained glass and lead</p>
+                <p class="thumbTitle">Slot 4</p>
+                <p class="thumbSub">Reference plan</p>
               </div>
             </button>
           </div>
-        
+
         </div>
 
         <div class="controlsRow">
@@ -593,7 +537,6 @@ Proceed with the review below.</p>
           <div id="approvalNext" class="approvalNext"></div>
         </div>
 
-        <!-- Confetti layer (full-page) -->
         <div id="confetti" class="confetti" aria-hidden="true"></div>
 
         <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Artwork preview">
@@ -606,16 +549,15 @@ Proceed with the review below.</p>
             <div class="modalCaption" id="modalCaption"></div>
           </div>
         </div>
-
       </section>
 
       <section class="card" id="submit">
-<h2 style="margin-top:14px;">Submit for approval once completed</h2>
+        <h2 style="margin-top:14px;">Submit for approval once completed</h2>
         <p class="small">Your response is saved automatically. Please do not include any sensitive personal information.</p>
 
         <div class="iframeWrap">
           <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSf9TMjN10p57Z7GTKjy7NhuzMsqp6hiGDtfbr8FzcNQvv106A/viewform?embedded=true"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSd5u3OaH0w4m7b2dTqfWq2d2s0m2o0p2q1r0s9t8u7v6w5x4y3z/viewform?embedded=true"
             title="Sacred Fragments — Curatorial Feedback Form"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
@@ -623,9 +565,9 @@ Proceed with the review below.</p>
         </div>
 
         <div class="actions">
-          <a class="btn btnPrimary" href="https://framevr.io/curatorial-constraints-cmac-exhibition#entrance">
+          <button class="btn btnPrimary" type="button" onclick="returnToExhibition()">
             Return to Exhibition
-          </a>
+          </button>
         </div>
 
         <p class="small">
@@ -636,9 +578,19 @@ Proceed with the review below.</p>
   </div>
 
   <script>
-
     (function(){
       const TOTAL_SLOTS = 4;
+      const FRAMEVR_URL = "https://framevr.io/curatorial-constraints-cmac-exhibition#entrance";
+
+      window.returnToExhibition = function returnToExhibition(){
+        if (window.opener && !window.opener.closed) {
+          try { window.opener.location.href = FRAMEVR_URL; } catch(e) {}
+          try { window.opener.focus(); } catch(e) {}
+          try { window.close(); } catch(e) {}
+          return;
+        }
+        alert("To avoid opening FrameVR twice (which can hang), please close this tab to return to the exhibition.");
+      };
 
       const matchedText = document.getElementById('matchedText');
       const scoreText = document.getElementById('scoreText');
@@ -657,10 +609,6 @@ Proceed with the review below.</p>
       const modalClose = document.getElementById('modalClose');
       const modalTitle = document.getElementById('modalTitle');
 
-      const notes = document.getElementById('reviewNotes');
-      const copyBtn = document.getElementById('copyNotes');
-      const copyStatus = document.getElementById('copyStatus');
-
       function setBadge(text, cls){
         badge.className = 'badge ' + cls;
         badge.textContent = text;
@@ -675,7 +623,7 @@ Proceed with the review below.</p>
         const palette = [accent, '#111827', '#4b5563', '#9ca3af', '#f3f4f6', '#10b981', '#f59e0b'];
 
         const pieces = 120;
-        for(let i=0;i<pieces;i++){ 
+        for(let i=0;i<pieces;i++){
           const p = document.createElement('div');
           p.className = 'confettiPiece';
           p.style.left = (Math.random()*100) + '%';
@@ -738,22 +686,6 @@ Proceed with the review below.</p>
 
       boxes.forEach(b => b.addEventListener('change', update));
 
-      
-      if(copyBtn && notes){
-        copyBtn.addEventListener('click', async () => {
-          try{
-            await navigator.clipboard.writeText(notes.value || '');
-            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
-          }catch(err){
-            // Fallback
-            notes.focus();
-            notes.select();
-            document.execCommand('copy');
-            copyStatus.textContent = (notes.value ? 'Copied. Paste into the Google Form.' : 'Nothing to copy yet.');
-          }
-        });
-      }
-
       clearBtn.addEventListener('click', () => {
         boxes.forEach(b => b.checked = false);
         update();
@@ -790,7 +722,6 @@ Proceed with the review below.</p>
 
       update();
     })();
-    
   </script>
 </body>
 </html>
